@@ -1,0 +1,17 @@
+name = "fc3d-api"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# 自定义域名：wrangler deploy 时自动创建 Worker Custom Domain 并接管 DNS
+routes = [
+  { pattern = "fc3d-api.555606.xyz", custom_domain = true },
+]
+
+# 部署后绑定自定义域名（workers.dev 域名在国内不可达）：
+#   Cloudflare Dashboard -> Workers & Pages -> fc3d-api -> Settings -> Domains
+#   例：fc3d-api.555606.xyz
+#
+# 生产密钥通过 wrangler secret 设置（GITHUB_TOKEN 建议用只授权 fc3d-archive 的 fine-grained PAT）：
+#   npx wrangler secret put GITHUB_TOKEN
+#   npx wrangler secret put GITHUB_OWNER     # suwei8
+#   npx wrangler secret put GITHUB_REPO      # fc3d-archive
