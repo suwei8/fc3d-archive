@@ -18,7 +18,19 @@ def test_parse_tianqi_history_row():
         "focus": "546",
         "gold": "5",
         "corresponding": "369",
+        "draw_result": "635",
     }
+
+
+def test_parse_tianqi_pending_draw_has_no_draw_result():
+    html = """
+    <table>
+      <tr><th>期数</th><th>日期</th><th>开机号</th><th>试机号</th><th>关注码</th><th>金码</th><th>对应码</th><th>开奖号</th></tr>
+      <tr><td>2026264</td><td>10-01</td><td>364</td><td>018</td><td>546</td><td>5</td><td>369</td><td></td></tr>
+    </table>
+    """
+    row = parse_tianqi(html)["2026264"]
+    assert "draw_result" not in row
 
 
 def test_parse_taihu_history_row():

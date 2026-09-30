@@ -15,6 +15,41 @@
     ],
     "bottom_gold": "8"
   },
+  "draw_result": "635",
+  "sources": {
+    "tianqi-sjh": {
+      "url": "https://www.800820.cn/kj/3d_sjh.html",
+      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "draw_result"
+      ]
+    },
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10835463.htm",
+      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    }
+  },
+  "collected_at": "2026-09-30T16:29:21.892028+00:00",
   "notes": [
     "第一张图片人工逐项核对黄金样本。"
   ]

@@ -15,6 +15,7 @@
     ],
     "bottom_gold": "5"
   },
+  "draw_result": "987",
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
@@ -23,7 +24,8 @@
         "trial_number",
         "focus",
         "gold",
-        "corresponding"
+        "corresponding",
+        "draw_result"
       ]
     },
     "cpzj-taihu": {

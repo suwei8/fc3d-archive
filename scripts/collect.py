@@ -86,13 +86,20 @@ def parse_tianqi(html: str) -> dict[str, dict[str, str]]:
         focus = re.sub(r"\D", "", compact[4])
         gold = re.sub(r"\D", "", compact[5])
         corresponding = re.sub(r"\D", "", compact[6])
+        row: dict[str, str] = {}
         if len(trial) == 3 and len(focus) == 3 and len(gold) == 1 and len(corresponding) == 3:
-            rows[issue] = {
+            row = {
                 "trial_number": trial,
                 "focus": focus,
                 "gold": gold,
                 "corresponding": corresponding,
             }
+        if len(compact) > 7:
+            draw = re.sub(r"\D", "", compact[7])
+            if len(draw) == 3:
+                row["draw_result"] = draw
+        if row:
+            rows[issue] = row
     return rows
 
 
@@ -214,15 +221,25 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
         fields.update(existing.get("fields", {}))
 
     sources: dict[str, Any] = {}
+    draw_result = existing.get("draw_result") if existing else None
     if issue in tianqi:
-        for key, value in tianqi[issue].items():
+        for key in ("trial_number", "focus", "gold", "corresponding"):
+            value = tianqi[issue].get(key)
+            if value is None:
+                continue
             locked = existing and existing.get("status") == "verified" and fields.get(key) is not None
             if not locked:
                 fields[key] = value
+        # 开奖号是客观结果，只在缺失时补入，已收录的不覆盖
+        if not draw_result and tianqi[issue].get("draw_result"):
+            draw_result = tianqi[issue]["draw_result"]
         sources["tianqi-sjh"] = {
             "url": TIANQI_URL,
             "fetched_at": now,
-            "fields": ["trial_number", "focus", "gold", "corresponding"],
+            "fields": [
+                key for key in ("trial_number", "focus", "gold", "corresponding", "draw_result")
+                if key in tianqi[issue]
+            ],
         }
 
     if issue in taihu:
@@ -267,6 +284,7 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
         "status": status,
         "verified_by": existing.get("verified_by") if existing else None,
         "fields": fields,
+        "draw_result": draw_result,
         "sources": sources,
         "collected_at": now,
         "notes": existing.get("notes", []) if existing else [],
@@ -280,9 +298,13 @@ def render_md(record: dict[str, Any]) -> str:
         "",
         f"> 当前状态：**{status}**",
         "",
+    ]
+    if record.get("draw_result"):
+        lines.extend([f"> 开奖号：**{record['draw_result']}**", ""])
+    lines.extend([
         "| 字段 | 数据 |",
         "| --- | --- |",
-    ]
+    ])
     for key in FIELDS:
         value = record["fields"].get(key)
         shown = "、".join(value) if isinstance(value, list) else (value or "—")

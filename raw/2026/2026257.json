@@ -15,27 +15,29 @@
     ],
     "bottom_gold": "2"
   },
+  "draw_result": "486",
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
+      "fetched_at": "2026-09-30T16:29:20.094904+00:00",
       "fields": [
         "trial_number",
         "focus",
         "gold",
-        "corresponding"
+        "corresponding",
+        "draw_result"
       ]
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
+      "fetched_at": "2026-09-30T16:29:20.094904+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
       "url": "https://www.cz89.com/read_10831867.htm",
-      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
+      "fetched_at": "2026-09-30T16:29:20.094904+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -47,7 +49,7 @@
       ]
     }
   },
-  "collected_at": "2026-09-30T10:31:39.357997+00:00",
+  "collected_at": "2026-09-30T16:29:20.094904+00:00",
   "notes": [
     "等待用户用257期原图再次核对后升级为 verified。"
   ]
