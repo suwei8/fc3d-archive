@@ -3,19 +3,22 @@
   "status": "candidate",
   "verified_by": null,
   "fields": {
-    "beijing": null,
+    "beijing": "戏流泉",
     "taihu": "左手倒右手",
     "trial_number": "275",
     "focus": "392",
     "gold": "9",
     "corresponding": "959",
-    "bottom_focus": null,
-    "bottom_gold": null
+    "bottom_focus": [
+      "6",
+      "8"
+    ],
+    "bottom_gold": "2"
   },
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-09-30T10:26:02.528735+00:00",
+      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -25,13 +28,26 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T10:26:02.528735+00:00",
+      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
       "fields": [
         "taihu"
       ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10831867.htm",
+      "fetched_at": "2026-09-30T10:31:39.357997+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
-  "collected_at": "2026-09-30T10:26:02.528735+00:00",
+  "collected_at": "2026-09-30T10:31:39.357997+00:00",
   "notes": [
     "等待用户用257期原图再次核对后升级为 verified。"
   ]
