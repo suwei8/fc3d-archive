@@ -1,0 +1,134 @@
+name: futi-download
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "期号，例如 2026258 或 2026259"
+        required: true
+        default: "2026258"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve manifest
+        id: manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          ISSUE="${{ inputs.issue }}"
+          FILE="futi/manifests/${ISSUE}.txt"
+          if [ ! -f "$FILE" ]; then
+            echo "::error::Manifest not found: $FILE"
+            echo "Available manifests:"
+            ls -1 futi/manifests || true
+            exit 1
+          fi
+          COUNT="$(grep -cve '^[[:space:]]*$' "$FILE")"
+          echo "file=$FILE" >> "$GITHUB_OUTPUT"
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Downloading $COUNT images for $ISSUE"
+
+      - name: Download images
+        env:
+          ISSUE: ${{ inputs.issue }}
+          MANIFEST: ${{ steps.manifest.outputs.file }}
+        run: |
+          python - <<'PY'
+          import csv
+          import hashlib
+          import os
+          import pathlib
+          import time
+          import urllib.request
+          import urllib.error
+
+          issue = os.environ["ISSUE"]
+          manifest = pathlib.Path(os.environ["MANIFEST"])
+          out = pathlib.Path("downloaded") / issue
+          out.mkdir(parents=True, exist_ok=True)
+
+          urls = [x.strip() for x in manifest.read_text(encoding="utf-8").splitlines() if x.strip()]
+          rows = []
+          ok = 0
+
+          for i, url in enumerate(urls, 1):
+              suffix = pathlib.Path(url.split("?", 1)[0]).suffix.lower() or ".jpg"
+              name = f"{i:04d}{suffix}"
+              dest = out / name
+              status = "error"
+              size = 0
+              sha256 = ""
+              error = ""
+
+              for attempt in range(1, 4):
+                  try:
+                      req = urllib.request.Request(
+                          url,
+                          headers={
+                              "User-Agent": "Mozilla/5.0 (GitHub-Actions fc3d-archive)",
+                              "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+                              "Referer": "https://wangwang.life/",
+                          },
+                      )
+                      with urllib.request.urlopen(req, timeout=30) as resp:
+                          data = resp.read()
+                      if not data:
+                          raise RuntimeError("empty response")
+                      dest.write_bytes(data)
+                      size = len(data)
+                      sha256 = hashlib.sha256(data).hexdigest()
+                      status = "ok"
+                      ok += 1
+                      break
+                  except Exception as e:
+                      error = f"{type(e).__name__}: {e}"
+                      if attempt < 3:
+                          time.sleep(attempt * 2)
+
+              rows.append({
+                  "index": i,
+                  "file": name,
+                  "status": status,
+                  "size": size,
+                  "sha256": sha256,
+                  "url": url,
+                  "error": error if status != "ok" else "",
+              })
+              print(f"[{i}/{len(urls)}] {status:5} {name} {size} {url}")
+
+          with (out / "manifest.csv").open("w", newline="", encoding="utf-8-sig") as f:
+              w = csv.DictWriter(f, fieldnames=["index","file","status","size","sha256","url","error"])
+              w.writeheader()
+              w.writerows(rows)
+
+          summary = out / "SUMMARY.txt"
+          summary.write_text(
+              f"issue={issue}\nrequested={len(urls)}\ndownloaded={ok}\nfailed={len(urls)-ok}\n",
+              encoding="utf-8",
+          )
+
+          print(summary.read_text(encoding="utf-8"))
+          if ok == 0:
+              raise SystemExit("all downloads failed")
+          PY
+
+      - name: Show summary
+        run: cat "downloaded/${{ inputs.issue }}/SUMMARY.txt"
+
+      - name: Upload image bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: futi-${{ inputs.issue }}-images
+          path: downloaded/${{ inputs.issue }}/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
