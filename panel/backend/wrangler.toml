@@ -3,8 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2025-01-01"
 
 # 自定义域名：wrangler deploy 时自动创建 Worker Custom Domain 并接管 DNS
+# fc3d.555606.xyz/api/* 为面板同源 API 路由：Pages 静态资源与 Worker 共存同一域名，
+# Worker route 优先匹配 /api/* —— 配合 Cloudflare Access 时单 cookie 同时覆盖面板与 API。
 routes = [
   { pattern = "fc3d-api.555606.xyz", custom_domain = true },
+  { pattern = "fc3d.555606.xyz/api/*", zone_name = "555606.xyz" },
 ]
 
 # 部署后绑定自定义域名（workers.dev 域名在国内不可达）：
