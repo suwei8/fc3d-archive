@@ -38,6 +38,11 @@ export const api = {
       body: JSON.stringify({ status, by }),
     }),
 
+  refreshDraw: () =>
+    request<{ success: boolean; updated: string[]; checked: number }>('/api/draw/refresh', {
+      method: 'POST',
+    }),
+
   updateFields: (issue: string, fields: Record<string, string>) =>
     request<{ success: boolean; changed: string[] }>(`/api/issues/${issue}/fields`, {
       method: 'PUT',

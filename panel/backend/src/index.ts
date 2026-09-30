@@ -4,6 +4,8 @@ import type { Bindings, IssueRecord } from './types'
 import { GitHubService, imageDir, rawPath, mdPath, bytesToB64, utf8ToB64 } from './github'
 import { renderMd, FIELDS } from './markdown'
 
+const ISSUE_JSON_RE = /^raw\/(\d{4})\/(\d{7})\.json$/
+
 const app = new Hono<{ Bindings: Bindings }>()
 
 // 鉴权由 Cloudflare Access 在边缘完成，Worker 内部不重复校验。
@@ -114,6 +116,117 @@ app.get('/api/images/*', async (c) => {
     'Content-Type': MIME_MAP[ext] || 'application/octet-stream',
     'Cache-Control': 'public, max-age=86400',
   })
+})
+
+// ---------- 开奖号补采 ----------
+
+// 新浪开奖 API：海外可访问（cwl.gov.cn 网宿 WAF 拦海外 IP，Worker 上不可用）。
+// 与 Lottery_Assistant/server/src/collector/sinaApi.ts 同一接口：lottoType=102 = 福彩3D。
+const SINA_API = 'https://mix.lottery.sina.com.cn/gateway/index/entry'
+const TIANQI_URL = 'https://www.800820.cn/kj/3d_sjh.html'
+
+// 新浪分页条目：issueNo(可能5位) + openResults(["9","8","7"])
+function mergeSinaPage(draws: Record<string, string>, json: any): number {
+  let totalPage = 1
+  const r = json?.result
+  totalPage = Number(r?.pagination?.totalPage) || 1
+  for (const it of r?.data ?? []) {
+    let issue = String(it?.issueNo ?? '')
+    if (/^\d{5}$/.test(issue)) issue = '20' + issue
+    const nums: string[] = Array.isArray(it?.openResults) ? it.openResults : []
+    const draw = nums.join('').replace(/\D/g, '')
+    if (/^20\d{5}$/.test(issue) && draw.length === 3) draws[issue] = draw
+  }
+  return totalPage
+}
+
+// 抽表格行为文本单元格（天齐兜底：只有最近 ~10 期）
+function parseTianqiDrawMap(html: string): Record<string, string> {
+  const map: Record<string, string> = {}
+  const cellRe = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi
+  for (const tr of html.match(/<tr[\s\S]*?<\/tr>/gi) ?? []) {
+    const cells: string[] = []
+    for (const m of tr.matchAll(cellRe)) {
+      cells.push(m[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ''))
+    }
+    if (cells.length < 8) continue
+    const issue = cells[0].match(/20\d{5}/)?.[0]
+    const draw = cells[7].replace(/\D/g, '')
+    if (issue && draw.length === 3) map[issue] = draw
+  }
+  return map
+}
+
+// 抓上游开奖号回填缺失的 draw_result（已收录值不覆盖）；返回 {updated: [...]}
+app.post('/api/draw/refresh', async (c) => {
+  const github = new GitHubService(c.env)
+  const tree = await github.getTree()
+  const paths = tree
+    .filter((i) => i.type === 'blob' && ISSUE_JSON_RE.test(i.path || ''))
+    .map((i) => i.path!)
+    .sort()
+
+  // 先读记录，找出缺开奖号的期号集合
+  const records = new Map<string, IssueRecord>()
+  const missing = new Set<string>()
+  for (const p of paths) {
+    const issue = p.match(/(\d{7})\.json$/)![1]
+    const record = await github.getJsonFile<IssueRecord>(p)
+    if (!record) continue
+    records.set(issue, record)
+    if (!record.draw_result) missing.add(issue)
+  }
+  if (!missing.size) {
+    return c.json({ success: true, updated: [], checked: paths.length, upstream_rows: 0 })
+  }
+
+  const draws: Record<string, string> = {}
+  // 新浪主源：翻页直到缺号期全部命中（封顶 8 页 ≈ 400 期）
+  for (let page = 1; page <= 8 && missing.size; page++) {
+    const params = new URLSearchParams({
+      format: 'json',
+      __caller__: 'wap',
+      __version__: '1.0.0',
+      __verno__: '10000',
+      cat1: 'gameOpenList',
+      paginationType: '1',
+      dpc: '1',
+      lottoType: '102',
+      page: String(page),
+      pageSize: '50',
+    })
+    try {
+      const res = await fetch(`${SINA_API}?${params}`, {
+        headers: { Accept: 'application/json' },
+        signal: AbortSignal.timeout(10_000),
+      })
+      if (!res.ok) break
+      const totalPage = mergeSinaPage(draws, await res.json())
+      for (const issue of [...missing]) {
+        if (draws[issue]) missing.delete(issue)
+      }
+      if (page >= totalPage) break
+    } catch {
+      break
+    }
+  }
+  // 天齐兜底（只覆盖最近 ~10 期，但海外可达）
+  if (missing.size) {
+    try {
+      const res = await fetch(TIANQI_URL, { headers: { 'User-Agent': 'fc3d-panel/1.0' } })
+      if (res.ok) Object.assign(draws, parseTianqiDrawMap(await res.text()))
+    } catch {}
+  }
+
+  const updated: string[] = []
+  for (const [issue, record] of records) {
+    if (record.draw_result || !draws[issue]) continue
+    record.draw_result = draws[issue]
+    await github.putFile(rawPath(issue), utf8ToB64(JSON.stringify(record, null, 2) + '\n'), `panel: ${issue} draw_result ${draws[issue]}`)
+    await github.putFile(mdPath(issue), utf8ToB64(renderMd(record)), `panel: render ${issue}.md`)
+    updated.push(issue)
+  }
+  return c.json({ success: true, updated, checked: paths.length, upstream_rows: Object.keys(draws).length })
 })
 
 // ---------- 核验 / 备注 ----------

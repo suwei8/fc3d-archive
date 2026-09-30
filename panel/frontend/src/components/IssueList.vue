@@ -10,6 +10,27 @@ const page = ref(1)
 const limit = 30
 const loading = ref(false)
 const error = ref('')
+const drawing = ref(false)
+const drawMsg = ref('')
+
+// 从上游补采开奖号：只回填缺失 draw_result 的期
+async function refreshDraw() {
+  if (drawing.value) return
+  drawing.value = true
+  drawMsg.value = ''
+  error.value = ''
+  try {
+    const r = await api.refreshDraw()
+    drawMsg.value = r.updated.length
+      ? `已补采开奖号：${r.updated.join('、')}`
+      : `已检查 ${r.checked} 期，无缺失开奖号`
+    await load(page.value)
+  } catch (e: any) {
+    error.value = e.message
+  } finally {
+    drawing.value = false
+  }
+}
 
 async function load(p = 1) {
   loading.value = true
@@ -39,11 +60,19 @@ onMounted(() => load(1))
   <div>
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-xl font-semibold text-gray-800">期数列表</h2>
-      <button
-        class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
-        :disabled="loading"
-        @click="load(page)"
-      >刷新</button>
+      <div class="flex items-center gap-2">
+        <span v-if="drawMsg" class="text-xs text-green-600">{{ drawMsg }}</span>
+        <button
+          class="text-sm px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50"
+          :disabled="drawing || loading"
+          @click="refreshDraw"
+        >{{ drawing ? '采集中…' : '采集开奖号' }}</button>
+        <button
+          class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+          :disabled="loading"
+          @click="load(page)"
+        >刷新</button>
+      </div>
     </div>
 
     <div v-if="error" class="mb-4 p-3 rounded-lg bg-red-50 text-red-700 text-sm">{{ error }}</div>
