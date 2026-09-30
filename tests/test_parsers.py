@@ -95,3 +95,47 @@ def test_parse_cz89_nightly_2026263_current_shape():
         "bottom_focus": ["6", "9"],
         "bottom_gold": "5",
     }
+
+
+def test_discover_cz89_historical_2026257_from_archive_page():
+    html = """
+    <html><body>
+      <a href="/read_10831867.htm">26年257期福彩3D晚间字谜汇总大全</a>
+      <a href="/read_other.htm">26年257期北京3d试机号后谜语汇总</a>
+    </body></html>
+    """
+    assert (
+        discover_cz89_nightly_url(
+            html,
+            "2026257",
+            base_url="https://www.cz89.com/tag/4_56.htm?p=4",
+        )
+        == "https://www.cz89.com/read_10831867.htm"
+    )
+
+
+def test_parse_cz89_nightly_2026257_source_fields():
+    html = """
+    <html><body>
+      <p>千禧3D试机号2026年257期：</p>
+      <p>试机号275</p>
+      <p>关注码392</p>
+      <p>金码9</p>
+      <p>对应码：[959]</p>
+      <p>牛彩关注码 1,4,0</p>
+      <p>牛彩网关注码：6,8</p>
+      <p>金码：2</p>
+      <p>北京试机号谜语 戏流泉</p>
+      <p>另版北京试机号谜语 拉丁语</p>
+      <p>太湖一语定胆 左手倒右手</p>
+    </body></html>
+    """
+    assert parse_cz89_nightly(html) == {
+        "trial_number": "275",
+        "focus": "392",
+        "gold": "9",
+        "corresponding": "959",
+        "beijing": "戏流泉",
+        "bottom_focus": ["6", "8"],
+        "bottom_gold": "2",
+    }

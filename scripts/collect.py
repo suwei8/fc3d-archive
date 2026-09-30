@@ -18,6 +18,7 @@ UA = "fc3d-archive/0.1 (+https://github.com/suwei8/fc3d-archive)"
 TIANQI_URL = "https://www.800820.cn/kj/3d_sjh.html"
 TAIHU_URL = "https://www.cpzj.com/3d/yydd/"
 CZ89_HOME_URL = "https://m.cz89.com/"
+CZ89_ARCHIVE_URL = "https://www.cz89.com/tag/4_56.htm"
 
 FIELDS = [
     "beijing", "taihu", "trial_number", "focus", "gold",
@@ -111,8 +112,8 @@ def parse_taihu(html: str) -> dict[str, str]:
     return rows
 
 
-def discover_cz89_nightly_url(home_html: str, issue: str) -> str | None:
-    """Find the issue-specific 牛彩网“福彩3D晚间字谜汇总大全” page."""
+def discover_cz89_nightly_url(home_html: str, issue: str, base_url: str = CZ89_HOME_URL) -> str | None:
+    """Find the issue-specific 牛彩网“福彩3D晚间字谜汇总大全” page in one listing page."""
     soup = BeautifulSoup(home_html, "html.parser")
     year2 = issue[2:4]
     issue_no = str(int(issue[-3:]))
@@ -122,7 +123,22 @@ def discover_cz89_nightly_url(home_html: str, issue: str) -> str | None:
     for a in soup.find_all("a", href=True):
         title = re.sub(r"\s+", "", a.get_text(" ", strip=True))
         if pattern.search(title):
-            return urljoin(CZ89_HOME_URL, a["href"])
+            return urljoin(base_url, a["href"])
+    return None
+
+
+def discover_cz89_nightly_history(issue: str, max_pages: int = 12) -> str | None:
+    """Search the 3D字谜总汇 archive for a historical issue."""
+    for page in range(1, max_pages + 1):
+        listing_url = CZ89_ARCHIVE_URL if page == 1 else f"{CZ89_ARCHIVE_URL}?p={page}"
+        html = safe_fetch(listing_url, f"cz89-archive-p{page}")
+        if not html:
+            continue
+        found = discover_cz89_nightly_url(html, issue, base_url=listing_url)
+        if found:
+            print(f"[info] cz89 historical issue {issue} found on archive page {page}: {found}")
+            return found
+    print(f"[warn] cz89 historical issue {issue} not found in first {max_pages} archive pages")
     return None
 
 
@@ -344,6 +360,8 @@ def main() -> int:
         )
         if home_html:
             cz89_url = discover_cz89_nightly_url(home_html, issue)
+        if not cz89_url:
+            cz89_url = discover_cz89_nightly_history(issue)
         if cz89_url:
             page_html = safe_fetch(cz89_url, "cz89-nightly")
             if page_html:
