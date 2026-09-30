@@ -1,0 +1,18 @@
+{
+  "issue": "2026257",
+  "status": "candidate",
+  "verified_by": null,
+  "fields": {
+    "beijing": null,
+    "taihu": "左手倒右手",
+    "trial_number": "275",
+    "focus": "392",
+    "gold": "9",
+    "corresponding": "959",
+    "bottom_focus": null,
+    "bottom_gold": null
+  },
+  "notes": [
+    "等待用户用257期原图再次核对后升级为 verified。"
+  ]
+}
