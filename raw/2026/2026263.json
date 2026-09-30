@@ -2,11 +2,14 @@
   "issue": "2026263",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "taihu"
+  ],
   "fields": {
-    "beijing": "访古寺",
+    "beijing": "������",
     "beijing_alt": "走天涯",
-    "taihu": "摸哨",
+    "taihu": "����",
     "trial_number": "395",
     "focus": "804",
     "gold": "8",
