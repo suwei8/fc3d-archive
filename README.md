@@ -68,7 +68,12 @@ GitHub Actions 每日定时运行采集器，也支持手动触发。采集器�
 
 架构与 MyInput 相同：Vue3 前端（Cloudflare Pages）→ Hono API（Cloudflare Workers）→ GitHub API 读写本仓库。访问控制由 Cloudflare Access 承担，代码内无鉴权逻辑。
 
-图片存放约定：`images/YYYY/期号/{1,2,3}.<ext>` 为群图固定槽位，`extra-*.<ext>` 为追加图片；面板通过 `/api/images/...` 代理私有仓图片。
+已部署：
+
+- 面板：<https://fc3d.555606.xyz>（Pages 项目 `fc3d-panel`）
+- API：<https://fc3d-api.555606.xyz>（Worker `fc3d-api`，secrets：GITHUB_TOKEN/GITHUB_OWNER/GITHUB_REPO）
+
+图片存放约定：`images/YYYY/期号/{1,2,3}.<ext>` 为群图固定槽位，`extra-*.<ext>` 为追加图片；面板通过 `/api/images/...` 代理回源（走 api.github.com，私有仓/国内均可访问）。
 
 ### 本地开发
 
