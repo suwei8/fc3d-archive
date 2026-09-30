@@ -12,6 +12,26 @@
     "bottom_focus": null,
     "bottom_gold": null
   },
+  "sources": {
+    "tianqi-sjh": {
+      "url": "https://www.800820.cn/kj/3d_sjh.html",
+      "fetched_at": "2026-09-30T10:26:02.528735+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding"
+      ]
+    },
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-09-30T10:26:02.528735+00:00",
+      "fields": [
+        "taihu"
+      ]
+    }
+  },
+  "collected_at": "2026-09-30T10:26:02.528735+00:00",
   "notes": [
     "等待用户用257期原图再次核对后升级为 verified。"
   ]
