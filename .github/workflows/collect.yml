@@ -1,1 +1,58 @@
-name: collect\n\non:\n  workflow_dispatch:\n    inputs:\n      issue:\n        description: "指定期号（留空则采集上游最新期）"\n        required: false\n        type: string\n  schedule:\n    # 北京时间 18:25、19:25、20:25，多跑几次以容忍上游延迟。\n    - cron: "25 10,11,12 * * *"\n\npermissions:\n  contents: write\n\nconcurrency:\n  group: fc3d-collector\n  cancel-in-progress: false\n\njobs:\n  collect:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - uses: actions/setup-python@v5\n        with:\n          python-version: "3.12"\n          cache: pip\n\n      - name: Install dependencies\n        run: pip install -r requirements.txt\n\n      - name: Run tests\n        run: pytest -q\n\n      - name: Collect\n        env:\n          ISSUE: ${{ inputs.issue }}\n        run: |\n          if [ -n "$ISSUE" ]; then\n            python scripts/collect.py --issue "$ISSUE"\n          else\n            python scripts/collect.py\n          fi\n\n      - name: Commit changed archive files\n        run: |\n          if git diff --quiet -- data raw; then\n            echo "No archive changes."\n            exit 0\n          fi\n          git config user.name "fc3d-archive-bot"\n          git config user.email "actions@users.noreply.github.com"\n          git add data raw\n          git commit -m "data: collect $(date -u +%Y-%m-%dT%H:%MZ)"\n          git push\n
+name: collect
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "指定期号（留空则采集上游最新期）"
+        required: false
+        type: string
+  schedule:
+    # 北京时间 18:25、19:25、20:25，多跑几次以容忍上游延迟。
+    - cron: "25 10,11,12 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fc3d-collector
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Collect
+        env:
+          ISSUE: ${{ inputs.issue }}
+        run: |
+          if [ -n "$ISSUE" ]; then
+            python scripts/collect.py --issue "$ISSUE"
+          else
+            python scripts/collect.py
+          fi
+
+      - name: Commit changed archive files
+        run: |
+          if git diff --quiet -- data raw; then
+            echo "No archive changes."
+            exit 0
+          fi
+          git config user.name "fc3d-archive-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data raw
+          git commit -m "data: collect $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
