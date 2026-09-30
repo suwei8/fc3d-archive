@@ -2,12 +2,13 @@ import type { IssueRecord } from './types'
 
 // 与 scripts/collect.py 的 render_md 保持逐字节一致，避免下次采集时产生无谓 diff。
 export const FIELDS = [
-  'beijing', 'taihu', 'trial_number', 'focus', 'gold',
+  'beijing', 'beijing_alt', 'taihu', 'trial_number', 'focus', 'gold',
   'corresponding', 'bottom_focus', 'bottom_gold',
 ] as const
 
 export const LABELS: Record<string, string> = {
   beijing: '北京',
+  beijing_alt: '另版北京',
   taihu: '太湖',
   trial_number: '试机号',
   focus: '关注码',
@@ -29,9 +30,11 @@ export function renderMd(record: IssueRecord): string {
   }
   lines.push('| 字段 | 数据 |', '| --- | --- |')
 
+  const locked = new Set(record.locked_fields || [])
   for (const key of FIELDS) {
     const value = record.fields[key]
-    const shown = Array.isArray(value) ? value.join('、') : (value || '—')
+    let shown = Array.isArray(value) ? value.join('、') : (value || '—')
+    if (locked.has(key)) shown += '（人工修正）'
     lines.push(`| ${LABELS[key]} | ${shown} |`)
   }
 

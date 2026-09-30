@@ -38,6 +38,13 @@ export const api = {
       body: JSON.stringify({ status, by }),
     }),
 
+  updateFields: (issue: string, fields: Record<string, string>) =>
+    request<{ success: boolean; changed: string[] }>(`/api/issues/${issue}/fields`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields }),
+    }),
+
   addNote: (issue: string, text: string) =>
     request<{ success: boolean }>(`/api/issues/${issue}/notes`, {
       method: 'POST',

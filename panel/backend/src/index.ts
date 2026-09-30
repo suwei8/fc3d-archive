@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import type { Bindings, IssueRecord } from './types'
 import { GitHubService, imageDir, rawPath, mdPath, bytesToB64, utf8ToB64 } from './github'
-import { renderMd } from './markdown'
+import { renderMd, FIELDS } from './markdown'
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -146,6 +146,61 @@ app.post('/api/issues/:issue/status', async (c) => {
     `panel: render ${issue}.md`,
   )
   return c.json({ success: true, status })
+})
+
+// 手动修正字段：{ "fields": { "taihu": "起跳", "bottom_focus": "6,9", "draw_result": "987" } }
+// 被改动的字段写入 locked_fields，之后自动采集（含 candidate 期）不再覆盖。
+app.put('/api/issues/:issue/fields', async (c) => {
+  const issue = c.req.param('issue')
+  let body: { fields?: Record<string, unknown> } = {}
+  try {
+    body = await c.req.json()
+  } catch {}
+  const updates = body.fields
+  if (!updates || typeof updates !== 'object') {
+    return c.json({ success: false, error: 'fields required' }, 400)
+  }
+
+  const github = new GitHubService(c.env)
+  const record = await github.getIssue(issue)
+  if (!record) return c.json({ success: false, error: 'issue not found' }, 404)
+
+  const locked = new Set(record.locked_fields || [])
+  const changed: string[] = []
+  for (const [key, raw] of Object.entries(updates)) {
+    if (key === 'draw_result') {
+      const next = String(raw ?? '').replace(/\D/g, '').slice(0, 3) || null
+      if ((record.draw_result ?? null) !== next) {
+        record.draw_result = next
+        changed.push(key)
+      }
+      continue
+    }
+    if (!(FIELDS as readonly string[]).includes(key)) continue
+    const next: string | string[] | null =
+      key === 'bottom_focus'
+        ? String(Array.isArray(raw) ? raw.join('') : raw ?? '').match(/\d/g)
+        : String(raw ?? '').trim() || null
+    if (JSON.stringify(record.fields[key] ?? null) !== JSON.stringify(next)) {
+      record.fields[key] = next
+      locked.add(key)
+      changed.push(key)
+    }
+  }
+  if (!changed.length) return c.json({ success: true, changed })
+
+  record.locked_fields = [...locked]
+  await github.putFile(
+    rawPath(issue),
+    utf8ToB64(JSON.stringify(record, null, 2) + '\n'),
+    `panel: ${issue} correct fields: ${changed.join(',')}`,
+  )
+  await github.putFile(
+    mdPath(issue),
+    utf8ToB64(renderMd(record)),
+    `panel: render ${issue}.md`,
+  )
+  return c.json({ success: true, changed })
 })
 
 // { "text": "复盘备注" }

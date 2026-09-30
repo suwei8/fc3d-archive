@@ -78,6 +78,7 @@ def test_parse_cz89_nightly_2026258_golden_fields():
         "gold": "5",
         "corresponding": "369",
         "beijing": "踏霜行",
+        "beijing_alt": "其它内容",
         "bottom_focus": ["1", "3"],
         "bottom_gold": "8",
     }
@@ -104,6 +105,7 @@ def test_parse_cz89_nightly_2026263_current_shape():
         "gold": "8",
         "corresponding": "048",
         "beijing": "访古寺",
+        "beijing_alt": "走天涯",
         "bottom_focus": ["6", "9"],
         "bottom_gold": "5",
     }
@@ -148,6 +150,7 @@ def test_parse_cz89_nightly_2026257_source_fields():
         "gold": "9",
         "corresponding": "959",
         "beijing": "戏流泉",
+        "beijing_alt": "拉丁语",
         "bottom_focus": ["6", "8"],
         "bottom_gold": "2",
     }

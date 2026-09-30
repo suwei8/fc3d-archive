@@ -1,0 +1,46 @@
+{
+  "issue": "2026253",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "念远人",
+    "beijing_alt": "白鹿原",
+    "taihu": "冬小麦",
+    "trial_number": "704",
+    "focus": "183",
+    "gold": "8",
+    "corresponding": "558",
+    "bottom_focus": [
+      "3",
+      "6"
+    ],
+    "bottom_gold": "4"
+  },
+  "draw_result": null,
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-09-30T18:00:08.568080+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10817521.htm",
+      "fetched_at": "2026-09-30T18:00:08.568080+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    }
+  },
+  "collected_at": "2026-09-30T18:00:08.568080+00:00",
+  "notes": []
+}

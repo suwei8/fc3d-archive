@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { api } from '../api'
 import type { IssueSummary } from '../types'
+import DigitText from './DigitText.vue'
 
 const issues = ref<IssueSummary[]>([])
 const total = ref(0)
@@ -25,18 +26,8 @@ async function load(p = 1) {
   }
 }
 
-function fmtTime(iso: string | null) {
-  if (!iso) return '—'
-  return new Date(iso).toLocaleString('zh-CN', { hour12: false })
-}
-
 function go(issue: string) {
   window.location.hash = `#/issue/${issue}`
-}
-
-function field(issue: IssueSummary, key: string) {
-  const v = issue.fields[key]
-  return Array.isArray(v) ? v.join('、') : v || '—'
 }
 
 const totalPages = () => Math.max(1, Math.ceil(total.value / limit))
@@ -62,21 +53,22 @@ onMounted(() => load(1))
         <thead>
           <tr class="text-left text-gray-500 border-b border-gray-200 bg-gray-50">
             <th class="px-4 py-3 font-medium">期号</th>
-            <th class="px-4 py-3 font-medium">状态</th>
             <th class="px-4 py-3 font-medium">试机号</th>
             <th class="px-4 py-3 font-medium">关注码</th>
             <th class="px-4 py-3 font-medium">金码</th>
+            <th class="px-4 py-3 font-medium">对应码</th>
+            <th class="px-4 py-3 font-medium">底部关注码</th>
+            <th class="px-4 py-3 font-medium">底部金码</th>
             <th class="px-4 py-3 font-medium">开奖号</th>
             <th class="px-4 py-3 font-medium">群图</th>
-            <th class="px-4 py-3 font-medium">采集时间</th>
           </tr>
         </thead>
         <tbody>
           <tr v-if="loading && !issues.length">
-            <td colspan="8" class="px-4 py-10 text-center text-gray-400">加载中…</td>
+            <td colspan="9" class="px-4 py-10 text-center text-gray-400">加载中…</td>
           </tr>
           <tr v-else-if="!issues.length">
-            <td colspan="8" class="px-4 py-10 text-center text-gray-400">暂无数据</td>
+            <td colspan="9" class="px-4 py-10 text-center text-gray-400">暂无数据</td>
           </tr>
           <tr
             v-for="item in issues"
@@ -85,24 +77,18 @@ onMounted(() => load(1))
             @click="go(item.issue)"
           >
             <td class="px-4 py-3 font-mono font-medium text-blue-700">{{ item.issue }}</td>
-            <td class="px-4 py-3">
-              <span
-                class="inline-block px-2 py-0.5 rounded-full text-xs font-medium"
-                :class="item.status === 'verified'
-                  ? 'bg-green-100 text-green-700'
-                  : 'bg-amber-100 text-amber-700'"
-              >{{ item.status }}</span>
-            </td>
-            <td class="px-4 py-3 font-mono">{{ field(item, 'trial_number') }}</td>
-            <td class="px-4 py-3 font-mono">{{ field(item, 'focus') }}</td>
-            <td class="px-4 py-3 font-mono font-bold text-red-600">{{ field(item, 'gold') }}</td>
+            <td class="px-4 py-3 font-mono"><DigitText :value="item.fields.trial_number" :draw="item.draw_result" /></td>
+            <td class="px-4 py-3 font-mono"><DigitText :value="item.fields.focus" :draw="item.draw_result" /></td>
+            <td class="px-4 py-3 font-mono font-bold"><DigitText :value="item.fields.gold" :draw="item.draw_result" /></td>
+            <td class="px-4 py-3 font-mono"><DigitText :value="item.fields.corresponding" :draw="item.draw_result" /></td>
+            <td class="px-4 py-3 font-mono"><DigitText :value="item.fields.bottom_focus" :draw="item.draw_result" /></td>
+            <td class="px-4 py-3 font-mono font-bold"><DigitText :value="item.fields.bottom_gold" :draw="item.draw_result" /></td>
             <td class="px-4 py-3 font-mono font-bold text-blue-700">{{ item.draw_result || '—' }}</td>
             <td class="px-4 py-3">
               <span :class="item.image_count >= 3 ? 'text-green-600' : 'text-gray-400'">
                 {{ item.image_count }}/3
               </span>
             </td>
-            <td class="px-4 py-3 text-gray-500">{{ fmtTime(item.collected_at) }}</td>
           </tr>
         </tbody>
       </table>

@@ -2,8 +2,10 @@
   "issue": "2026258",
   "status": "verified",
   "verified_by": "human",
+  "locked_fields": [],
   "fields": {
     "beijing": "踏霜行",
+    "beijing_alt": "流水线",
     "taihu": "山君坐镇",
     "trial_number": "018",
     "focus": "546",
@@ -19,7 +21,7 @@
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fetched_at": "2026-09-30T18:00:14.189998+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -30,26 +32,27 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fetched_at": "2026-09-30T18:00:14.189998+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
       "url": "https://www.cz89.com/read_10835463.htm",
-      "fetched_at": "2026-09-30T16:29:21.892028+00:00",
+      "fetched_at": "2026-09-30T18:00:14.189998+00:00",
       "fields": [
         "trial_number",
         "focus",
         "gold",
         "corresponding",
         "beijing",
+        "beijing_alt",
         "bottom_focus",
         "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-09-30T16:29:21.892028+00:00",
+  "collected_at": "2026-09-30T18:00:14.189998+00:00",
   "notes": [
     "第一张图片人工逐项核对黄金样本。"
   ]

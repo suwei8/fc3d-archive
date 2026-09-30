@@ -21,12 +21,13 @@ CZ89_HOME_URL = "https://m.cz89.com/"
 CZ89_ARCHIVE_URL = "https://www.cz89.com/tag/4_56.htm"
 
 FIELDS = [
-    "beijing", "taihu", "trial_number", "focus", "gold",
+    "beijing", "beijing_alt", "taihu", "trial_number", "focus", "gold",
     "corresponding", "bottom_focus", "bottom_gold",
 ]
 
 LABELS = {
     "beijing": "北京",
+    "beijing_alt": "另版北京",
     "taihu": "太湖",
     "trial_number": "试机号",
     "focus": "关注码",
@@ -177,6 +178,13 @@ def parse_cz89_nightly(html: str) -> dict[str, Any]:
     if beijing:
         result["beijing"] = beijing.group(1).strip()
 
+    beijing_alt = re.search(
+        r"(?m)^另版北京试机号谜语\s*[:：]?\s*([^\n]+?)\s*$",
+        text,
+    )
+    if beijing_alt:
+        result["beijing_alt"] = beijing_alt.group(1).strip()
+
     bottom_focus = re.search(
         r"(?m)^牛彩网关注码\s*[:：]\s*([0-9０-９,，、\s]+?)\s*$",
         text,
@@ -213,6 +221,14 @@ def load_existing(issue: str) -> dict[str, Any] | None:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _is_locked(existing: dict[str, Any] | None, key: str, fields: dict[str, Any]) -> bool:
+    if not existing:
+        return False
+    if key in (existing.get("locked_fields") or []):
+        return True
+    return existing.get("status") == "verified" and fields.get(key) is not None
+
+
 def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str, str], cz89: dict[str, Any] | None = None, cz89_url: str | None = None) -> dict[str, Any]:
     now = datetime.now(timezone.utc).isoformat()
     existing = load_existing(issue)
@@ -227,8 +243,7 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
             value = tianqi[issue].get(key)
             if value is None:
                 continue
-            locked = existing and existing.get("status") == "verified" and fields.get(key) is not None
-            if not locked:
+            if not _is_locked(existing, key, fields):
                 fields[key] = value
         # 开奖号是客观结果，只在缺失时补入，已收录的不覆盖
         if not draw_result and tianqi[issue].get("draw_result"):
@@ -243,8 +258,7 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
         }
 
     if issue in taihu:
-        locked = existing and existing.get("status") == "verified" and fields.get("taihu") is not None
-        if not locked:
+        if not _is_locked(existing, "taihu", fields):
             fields["taihu"] = taihu[issue]
         sources["cpzj-taihu"] = {
             "url": TAIHU_URL,
@@ -259,11 +273,10 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
             if key in cz89 and fields.get(key) in (None, ""):
                 fields[key] = cz89[key]
 
-        for key in ("beijing", "bottom_focus", "bottom_gold"):
+        for key in ("beijing", "beijing_alt", "bottom_focus", "bottom_gold"):
             if key not in cz89:
                 continue
-            locked = existing and existing.get("status") == "verified" and fields.get(key) is not None
-            if not locked:
+            if not _is_locked(existing, key, fields):
                 fields[key] = cz89[key]
 
         sources["cz89-nightly"] = {
@@ -272,7 +285,7 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
             "fields": [
                 key for key in (
                     "trial_number", "focus", "gold", "corresponding",
-                    "beijing", "bottom_focus", "bottom_gold",
+                    "beijing", "beijing_alt", "bottom_focus", "bottom_gold",
                 )
                 if key in cz89
             ],
@@ -283,6 +296,7 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
         "issue": issue,
         "status": status,
         "verified_by": existing.get("verified_by") if existing else None,
+        "locked_fields": existing.get("locked_fields", []) if existing else [],
         "fields": fields,
         "draw_result": draw_result,
         "sources": sources,
@@ -305,9 +319,12 @@ def render_md(record: dict[str, Any]) -> str:
         "| 字段 | 数据 |",
         "| --- | --- |",
     ])
+    locked = set(record.get("locked_fields") or [])
     for key in FIELDS:
         value = record["fields"].get(key)
         shown = "、".join(value) if isinstance(value, list) else (value or "—")
+        if key in locked:
+            shown += "（人工修正）"
         lines.append(f"| {LABELS[key]} | {shown} |")
 
     lines.extend(["", "## 数据源", ""])

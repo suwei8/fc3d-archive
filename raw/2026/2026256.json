@@ -2,8 +2,10 @@
   "issue": "2026256",
   "status": "candidate",
   "verified_by": null,
+  "locked_fields": [],
   "fields": {
     "beijing": "闭柴扉",
+    "beijing_alt": "立方体",
     "taihu": "背道而驰",
     "trial_number": "469",
     "focus": "817",
@@ -19,7 +21,7 @@
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-09-30T16:29:18.222686+00:00",
+      "fetched_at": "2026-09-30T18:00:10.472230+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -30,25 +32,26 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T16:29:18.222686+00:00",
+      "fetched_at": "2026-09-30T18:00:10.472230+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
       "url": "https://www.cz89.com/read_10828470.htm",
-      "fetched_at": "2026-09-30T16:29:18.222686+00:00",
+      "fetched_at": "2026-09-30T18:00:10.472230+00:00",
       "fields": [
         "trial_number",
         "focus",
         "gold",
         "corresponding",
         "beijing",
+        "beijing_alt",
         "bottom_focus",
         "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-09-30T16:29:18.222686+00:00",
+  "collected_at": "2026-09-30T18:00:10.472230+00:00",
   "notes": []
 }

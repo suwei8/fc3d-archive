@@ -8,6 +8,7 @@ const props = defineProps<{ issue: string }>()
 
 const FIELD_LABELS: [string, string][] = [
   ['beijing', '北京字谜'],
+  ['beijing_alt', '另版北京字谜'],
   ['taihu', '太湖一语定胆'],
   ['trial_number', '试机号'],
   ['focus', '关注码'],
@@ -30,6 +31,8 @@ const busy = ref(false)
 const previewUrl = ref('')
 const noteText = ref('')
 const slotRefs = ref<InstanceType<typeof ImageSlot>[]>([])
+const editing = ref(false)
+const draft = ref<Record<string, string>>({})
 
 const slotImage = computed(() => {
   const map: Record<string, ImageItem | undefined> = {}
@@ -74,6 +77,31 @@ function hitBadge(key: string): { text: string; hit: boolean } | null {
     return hits ? { text: '命中', hit: true } : { text: '未中', hit: false }
   }
   return hits ? { text: `${hits}位中`, hit: true } : { text: '未中', hit: false }
+}
+
+// 手动修正：以群图为准直接改字段，改过的字段进 locked_fields 不再被采集覆盖
+function startEdit() {
+  const d: Record<string, string> = { draw_result: record.value?.draw_result || '' }
+  for (const [key] of FIELD_LABELS) {
+    const v = record.value?.fields?.[key]
+    d[key] = Array.isArray(v) ? v.join(',') : (v ?? '')
+  }
+  draft.value = d
+  editing.value = true
+}
+
+async function saveEdit() {
+  if (!record.value || busy.value) return
+  busy.value = true
+  try {
+    await api.updateFields(props.issue, draft.value)
+    editing.value = false
+    await load()
+  } catch (e: any) {
+    error.value = e.message
+  } finally {
+    busy.value = false
+  }
 }
 
 async function toggleVerify() {
@@ -180,39 +208,72 @@ onUnmounted(() => document.removeEventListener('paste', onPaste))
         >{{ record.status === 'verified' ? '取消核验' : '对图核验通过' }}</button>
       </div>
 
-      <div class="grid gap-4 lg:grid-cols-2">
+      <div>
         <!-- 字段 -->
         <section class="bg-white rounded-xl border border-gray-200 p-4">
-          <h3 class="font-semibold text-gray-800 mb-3">采集字段</h3>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-semibold text-gray-800">采集字段</h3>
+            <div v-if="!editing" class="flex items-center gap-2">
+              <button
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors"
+                @click="startEdit"
+              >修正字段</button>
+            </div>
+            <div v-else class="flex items-center gap-2">
+              <button
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                :disabled="busy"
+                @click="saveEdit"
+              >保存</button>
+              <button
+                class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+                :disabled="busy"
+                @click="editing = false"
+              >取消</button>
+            </div>
+          </div>
           <table class="w-full text-sm">
             <tbody>
               <tr v-for="[key, label] in FIELD_LABELS" :key="key" class="border-b border-gray-100 last:border-0">
                 <td class="py-2 pr-3 text-gray-500 w-28">{{ label }}</td>
-                <td class="py-2 font-medium" :class="key === 'gold' ? 'text-red-600 font-bold' : 'text-gray-800'">
-                  {{ fieldValue(key) }}
-                  <span
-                    v-if="hitBadge(key)"
-                    class="ml-2 px-1.5 py-0.5 rounded text-xs font-normal"
-                    :class="hitBadge(key)!.hit ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'"
-                  >{{ hitBadge(key)!.text }}</span>
+                <td class="py-2 font-medium" :class="key === 'gold' && !editing ? 'text-red-600 font-bold' : 'text-gray-800'">
+                  <input
+                    v-if="editing"
+                    v-model="draft[key]"
+                    class="w-full rounded border border-gray-300 px-2 py-1 font-normal outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100"
+                  />
+                  <template v-else>
+                    {{ fieldValue(key) }}
+                    <span
+                      v-if="record.locked_fields?.includes(key)"
+                      class="ml-2 px-1.5 py-0.5 rounded text-xs font-normal bg-purple-100 text-purple-600"
+                    >已修正</span>
+                    <span
+                      v-if="hitBadge(key)"
+                      class="ml-2 px-1.5 py-0.5 rounded text-xs font-normal"
+                      :class="hitBadge(key)!.hit ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'"
+                    >{{ hitBadge(key)!.text }}</span>
+                  </template>
+                </td>
+              </tr>
+              <tr v-if="editing" class="border-b border-gray-100 last:border-0">
+                <td class="py-2 pr-3 text-gray-500 w-28">开奖号</td>
+                <td class="py-2">
+                  <input
+                    v-model="draft.draw_result"
+                    class="w-full rounded border border-gray-300 px-2 py-1 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-100"
+                    placeholder="3 位数字，留空表示未开"
+                  />
                 </td>
               </tr>
             </tbody>
           </table>
-          <p class="mt-3 text-xs text-gray-400">采集于 {{ fmtTime(record.collected_at) }}</p>
+          <p class="mt-3 text-xs text-gray-400">
+            采集于 {{ fmtTime(record.collected_at) }}
+            <template v-if="editing">｜保存后被改动的字段将标记"已修正"并锁定，不再被自动采集覆盖</template>
+          </p>
         </section>
 
-        <!-- 数据源 -->
-        <section class="bg-white rounded-xl border border-gray-200 p-4">
-          <h3 class="font-semibold text-gray-800 mb-3">数据源</h3>
-          <ul class="space-y-2 text-sm">
-            <li v-for="(meta, id) in record.sources" :key="id" class="break-all">
-              <span class="text-gray-500">{{ id }}：</span>
-              <a :href="meta.url" target="_blank" class="text-blue-600 hover:underline">{{ meta.url }}</a>
-            </li>
-            <li v-if="!record.sources || !Object.keys(record.sources).length" class="text-gray-400">暂无来源记录</li>
-          </ul>
-        </section>
       </div>
 
       <!-- 群图 -->
@@ -285,6 +346,25 @@ onUnmounted(() => document.removeEventListener('paste', onPaste))
             @click="submitNote"
           >保存</button>
         </div>
+      </section>
+
+      <!-- 数据源：低频信息沉到页尾，默认收起 -->
+      <section class="mt-4 bg-white rounded-xl border border-gray-200 p-4">
+        <details class="group">
+          <summary class="font-semibold text-gray-800 cursor-pointer select-none flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+            数据源
+            <svg class="w-4 h-4 text-gray-400 transition-transform group-open:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+          </summary>
+          <ul class="space-y-2 text-sm mt-3">
+            <li v-for="(meta, id) in record.sources" :key="id" class="break-all">
+              <span class="text-gray-500">{{ id }}：</span>
+              <a :href="meta.url" target="_blank" class="text-blue-600 hover:underline">{{ meta.url }}</a>
+            </li>
+            <li v-if="!record.sources || !Object.keys(record.sources).length" class="text-gray-400">暂无来源记录</li>
+          </ul>
+        </details>
       </section>
     </template>
 
