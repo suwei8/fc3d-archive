@@ -61,6 +61,10 @@ def test_parse_cz89_nightly_2026258_golden_fields():
     </body></html>
     """
     assert parse_cz89_nightly(html) == {
+        "trial_number": "018",
+        "focus": "546",
+        "gold": "5",
+        "corresponding": "369",
         "beijing": "踏霜行",
         "bottom_focus": ["1", "3"],
         "bottom_gold": "8",
@@ -83,6 +87,10 @@ def test_parse_cz89_nightly_2026263_current_shape():
     </body></html>
     """
     assert parse_cz89_nightly(html) == {
+        "trial_number": "395",
+        "focus": "804",
+        "gold": "8",
+        "corresponding": "048",
         "beijing": "访古寺",
         "bottom_focus": ["6", "9"],
         "bottom_gold": "5",
