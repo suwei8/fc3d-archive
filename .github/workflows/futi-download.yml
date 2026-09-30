@@ -1,16 +1,12 @@
 name: futi-download
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/futi-download.yml"
   workflow_dispatch:
     inputs:
       issue:
         description: "期号，例如 2026258 或 2026259"
         required: true
-        default: "2026258"
+        default: "2026259"
         type: string
 
 permissions:
@@ -28,7 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ISSUE="${{ github.event_name == 'push' && '2026259' || inputs.issue }}"
+          ISSUE="${{ inputs.issue }}"
           FILE="futi/manifests/${ISSUE}.txt"
           if [ ! -f "$FILE" ]; then
             echo "::error::Manifest not found: $FILE"
@@ -43,7 +39,7 @@ jobs:
 
       - name: Download images
         env:
-          ISSUE: ${{ github.event_name == 'push' && '2026259' || inputs.issue }}
+          ISSUE: ${{ inputs.issue }}
           MANIFEST: ${{ steps.manifest.outputs.file }}
         run: |
           python - <<'PY'
@@ -138,7 +134,7 @@ jobs:
       - name: Show summary
         if: always()
         run: |
-          ISSUE="${{ github.event_name == 'push' && '2026259' || inputs.issue }}"
+          ISSUE="${{ inputs.issue }}"
           if [ -f "downloaded/${ISSUE}/SUMMARY.txt" ]; then
             cat "downloaded/${ISSUE}/SUMMARY.txt"
           else
@@ -149,8 +145,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: futi-${{ github.event_name == 'push' && '2026259' || inputs.issue }}-images
-          path: downloaded/${{ github.event_name == 'push' && '2026259' || inputs.issue }}/
+          name: futi-${{ inputs.issue }}-images
+          path: downloaded/${{ inputs.issue }}/
           if-no-files-found: warn
           retention-days: 7
           compression-level: 0
