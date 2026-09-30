@@ -15,7 +15,7 @@ permissions:
 jobs:
   download:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -49,7 +49,7 @@ jobs:
           import pathlib
           import time
           import urllib.request
-          import urllib.error
+          from concurrent.futures import ThreadPoolExecutor, as_completed
 
           issue = os.environ["ISSUE"]
           manifest = pathlib.Path(os.environ["MANIFEST"])
@@ -57,19 +57,16 @@ jobs:
           out.mkdir(parents=True, exist_ok=True)
 
           urls = [x.strip() for x in manifest.read_text(encoding="utf-8").splitlines() if x.strip()]
-          rows = []
-          ok = 0
+          total = len(urls)
 
-          for i, url in enumerate(urls, 1):
+          def download_one(item):
+              i, url = item
               suffix = pathlib.Path(url.split("?", 1)[0]).suffix.lower() or ".jpg"
               name = f"{i:04d}{suffix}"
               dest = out / name
-              status = "error"
-              size = 0
-              sha256 = ""
               error = ""
 
-              for attempt in range(1, 4):
+              for attempt in range(1, 3):
                   try:
                       req = urllib.request.Request(
                           url,
@@ -79,31 +76,44 @@ jobs:
                               "Referer": "https://wangwang.life/",
                           },
                       )
-                      with urllib.request.urlopen(req, timeout=30) as resp:
+                      with urllib.request.urlopen(req, timeout=20) as resp:
                           data = resp.read()
                       if not data:
                           raise RuntimeError("empty response")
                       dest.write_bytes(data)
-                      size = len(data)
-                      sha256 = hashlib.sha256(data).hexdigest()
-                      status = "ok"
-                      ok += 1
-                      break
+                      return {
+                          "index": i, "file": name, "status": "ok", "size": len(data),
+                          "sha256": hashlib.sha256(data).hexdigest(), "url": url, "error": ""
+                      }
                   except Exception as e:
                       error = f"{type(e).__name__}: {e}"
-                      if attempt < 3:
-                          time.sleep(attempt * 2)
+                      if attempt < 2:
+                          time.sleep(1)
 
-              rows.append({
-                  "index": i,
-                  "file": name,
-                  "status": status,
-                  "size": size,
-                  "sha256": sha256,
-                  "url": url,
-                  "error": error if status != "ok" else "",
-              })
-              print(f"[{i}/{len(urls)}] {status:5} {name} {size} {url}")
+              return {
+                  "index": i, "file": name, "status": "error", "size": 0,
+                  "sha256": "", "url": url, "error": error
+              }
+
+          rows = []
+          workers = min(24, max(1, total))
+          print(f"Starting {total} downloads with {workers} workers", flush=True)
+
+          with ThreadPoolExecutor(max_workers=workers) as pool:
+              futures = {pool.submit(download_one, item): item[0] for item in enumerate(urls, 1)}
+              done = 0
+              for future in as_completed(futures):
+                  row = future.result()
+                  rows.append(row)
+                  done += 1
+                  print(
+                      f"[{done}/{total}] #{row['index']:04d} {row['status']:5} "
+                      f"{row['file']} {row['size']} {row['url']}",
+                      flush=True,
+                  )
+
+          rows.sort(key=lambda r: r["index"])
+          ok = sum(r["status"] == "ok" for r in rows)
 
           with (out / "manifest.csv").open("w", newline="", encoding="utf-8-sig") as f:
               w = csv.DictWriter(f, fieldnames=["index","file","status","size","sha256","url","error"])
@@ -112,23 +122,30 @@ jobs:
 
           summary = out / "SUMMARY.txt"
           summary.write_text(
-              f"issue={issue}\nrequested={len(urls)}\ndownloaded={ok}\nfailed={len(urls)-ok}\n",
+              f"issue={issue}\nrequested={total}\ndownloaded={ok}\nfailed={total-ok}\nworkers={workers}\n",
               encoding="utf-8",
           )
+          print(summary.read_text(encoding="utf-8"), flush=True)
 
-          print(summary.read_text(encoding="utf-8"))
           if ok == 0:
               raise SystemExit("all downloads failed")
           PY
 
       - name: Show summary
-        run: cat "downloaded/${{ inputs.issue }}/SUMMARY.txt"
+        if: always()
+        run: |
+          if [ -f "downloaded/${{ inputs.issue }}/SUMMARY.txt" ]; then
+            cat "downloaded/${{ inputs.issue }}/SUMMARY.txt"
+          else
+            echo "No summary generated."
+          fi
 
       - name: Upload image bundle
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: futi-${{ inputs.issue }}-images
           path: downloaded/${{ inputs.issue }}/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 7
           compression-level: 0
