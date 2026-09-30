@@ -1,6 +1,10 @@
 name: futi-download
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/futi-download.yml"
   workflow_dispatch:
     inputs:
       issue:
@@ -24,7 +28,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ISSUE="${{ inputs.issue }}"
+          ISSUE="${{ github.event_name == 'push' && '2026259' || inputs.issue }}"
           FILE="futi/manifests/${ISSUE}.txt"
           if [ ! -f "$FILE" ]; then
             echo "::error::Manifest not found: $FILE"
@@ -39,7 +43,7 @@ jobs:
 
       - name: Download images
         env:
-          ISSUE: ${{ inputs.issue }}
+          ISSUE: ${{ github.event_name == 'push' && '2026259' || inputs.issue }}
           MANIFEST: ${{ steps.manifest.outputs.file }}
         run: |
           python - <<'PY'
@@ -134,8 +138,9 @@ jobs:
       - name: Show summary
         if: always()
         run: |
-          if [ -f "downloaded/${{ inputs.issue }}/SUMMARY.txt" ]; then
-            cat "downloaded/${{ inputs.issue }}/SUMMARY.txt"
+          ISSUE="${{ github.event_name == 'push' && '2026259' || inputs.issue }}"
+          if [ -f "downloaded/${ISSUE}/SUMMARY.txt" ]; then
+            cat "downloaded/${ISSUE}/SUMMARY.txt"
           else
             echo "No summary generated."
           fi
@@ -144,8 +149,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: futi-${{ inputs.issue }}-images
-          path: downloaded/${{ inputs.issue }}/
+          name: futi-${{ github.event_name == 'push' && '2026259' || inputs.issue }}-images
+          path: downloaded/${{ github.event_name == 'push' && '2026259' || inputs.issue }}/
           if-no-files-found: warn
           retention-days: 7
           compression-level: 0
