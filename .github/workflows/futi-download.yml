@@ -6,7 +6,7 @@ on:
       issue:
         description: "期号，例如 2026258 或 2026259"
         required: true
-        default: "2026259"
+        default: "2026257"
         type: string
 
 permissions:
