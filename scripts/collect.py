@@ -37,11 +37,28 @@ LABELS = {
 
 
 def fetch(url: str) -> str:
-    r = requests.get(url, headers={"User-Agent": UA}, timeout=25)
+    r = requests.get(
+        url,
+        headers={
+            "User-Agent": UA,
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.5",
+        },
+        timeout=25,
+    )
     r.raise_for_status()
     if not r.encoding or r.encoding.lower() == "iso-8859-1":
         r.encoding = r.apparent_encoding
     return r.text
+
+
+def safe_fetch(url: str, source_name: str) -> str | None:
+    """Fetch one upstream without aborting the whole collection on source failure."""
+    try:
+        return fetch(url)
+    except requests.RequestException as exc:
+        print(f"[warn] {source_name} unavailable: {exc}")
+        return None
 
 
 def _cells(tr) -> list[str]:
@@ -110,10 +127,25 @@ def discover_cz89_nightly_url(home_html: str, issue: str) -> str | None:
 
 
 def parse_cz89_nightly(html: str) -> dict[str, Any]:
-    """Parse 北京、牛彩网关注码、其后的金码 from the nightly digest page."""
+    """Parse nightly digest fields, including core trial data as a fallback."""
     soup = BeautifulSoup(html, "html.parser")
     text = soup.get_text("\n", strip=True)
     result: dict[str, Any] = {}
+
+    core = re.search(
+        r"(?s)试机号\s*[:：]?\s*(\d{3}).{0,120}?"
+        r"关注码\s*[:：]?\s*(\d{3}).{0,80}?"
+        r"金码\s*[:：]?\s*(\d).{0,80}?"
+        r"对应码\s*[:：]?\s*[\[【]?\s*(\d{3})",
+        text,
+    )
+    if core:
+        result.update({
+            "trial_number": core.group(1),
+            "focus": core.group(2),
+            "gold": core.group(3),
+            "corresponding": core.group(4),
+        })
 
     beijing = re.search(
         r"(?m)^北京试机号谜语\s*[:：]?\s*([^\n]+?)\s*$",
@@ -188,17 +220,27 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
         }
 
     if cz89:
+        # cz89 carries the same trial/focus/gold/corresponding quartet. Use it only
+        # as a fallback when the primary Tianqi source is unavailable/missing.
+        for key in ("trial_number", "focus", "gold", "corresponding"):
+            if key in cz89 and fields.get(key) in (None, ""):
+                fields[key] = cz89[key]
+
         for key in ("beijing", "bottom_focus", "bottom_gold"):
             if key not in cz89:
                 continue
             locked = existing and existing.get("status") == "verified" and fields.get(key) is not None
             if not locked:
                 fields[key] = cz89[key]
+
         sources["cz89-nightly"] = {
             "url": cz89_url or CZ89_HOME_URL,
             "fetched_at": now,
             "fields": [
-                key for key in ("beijing", "bottom_focus", "bottom_gold")
+                key for key in (
+                    "trial_number", "focus", "gold", "corresponding",
+                    "beijing", "bottom_focus", "bottom_gold",
+                )
                 if key in cz89
             ],
         }
@@ -273,15 +315,23 @@ def main() -> int:
     parser.add_argument("--cz89-page-file", help="离线调试：直接读取牛彩网晚间字谜页 HTML")
     args = parser.parse_args()
 
-    tianqi_html = Path(args.tianqi_file).read_text(encoding="utf-8") if args.tianqi_file else fetch(TIANQI_URL)
-    taihu_html = Path(args.taihu_file).read_text(encoding="utf-8") if args.taihu_file else fetch(TAIHU_URL)
+    tianqi_html = (
+        Path(args.tianqi_file).read_text(encoding="utf-8")
+        if args.tianqi_file
+        else safe_fetch(TIANQI_URL, "tianqi-sjh")
+    )
+    taihu_html = (
+        Path(args.taihu_file).read_text(encoding="utf-8")
+        if args.taihu_file
+        else safe_fetch(TAIHU_URL, "cpzj-taihu")
+    )
 
-    tianqi = parse_tianqi(tianqi_html)
-    taihu = parse_taihu(taihu_html)
+    tianqi = parse_tianqi(tianqi_html) if tianqi_html else {}
+    taihu = parse_taihu(taihu_html) if taihu_html else {}
     issue = args.issue or newest_issue(tianqi, taihu)
 
-    if issue not in tianqi and issue not in taihu:
-        raise SystemExit(f"Issue {issue} not found in current upstream pages")
+    if issue not in tianqi and issue not in taihu and not load_existing(issue):
+        print(f"[warn] issue {issue} absent from primary upstream pages; trying cz89")
 
     cz89: dict[str, Any] = {}
     cz89_url: str | None = None
@@ -292,11 +342,17 @@ def main() -> int:
         home_html = (
             Path(args.cz89_home_file).read_text(encoding="utf-8")
             if args.cz89_home_file
-            else fetch(CZ89_HOME_URL)
+            else safe_fetch(CZ89_HOME_URL, "cz89-home")
         )
-        cz89_url = discover_cz89_nightly_url(home_html, issue)
+        if home_html:
+            cz89_url = discover_cz89_nightly_url(home_html, issue)
         if cz89_url:
-            cz89 = parse_cz89_nightly(fetch(cz89_url))
+            page_html = safe_fetch(cz89_url, "cz89-nightly")
+            if page_html:
+                cz89 = parse_cz89_nightly(page_html)
+
+    if not tianqi and not taihu and not cz89 and not load_existing(issue):
+        raise SystemExit(f"No usable upstream data for issue {issue}")
 
     record = build_record(issue, tianqi, taihu, cz89=cz89, cz89_url=cz89_url)
     write_record(record)
