@@ -9,3 +9,6 @@ node_modules/
 dist/
 .dev.vars
 .wrangler/
+
+# vite cache
+.vite/
