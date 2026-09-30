@@ -259,20 +259,18 @@ def build_record(issue: str, tianqi: dict[str, dict[str, str]], taihu: dict[str,
 
 def render_md(record: dict[str, Any]) -> str:
     status = record["status"]
-    populated_status = "✅ 人工确认" if status == "verified" else "⚠️ 自动采集/待核验"
     lines = [
         f"# 福彩3D {record['issue']}期",
         "",
         f"> 当前状态：**{status}**",
         "",
-        "| 字段 | 数据 | 状态 |",
-        "| --- | --- | --- |",
+        "| 字段 | 数据 |",
+        "| --- | --- |",
     ]
     for key in FIELDS:
         value = record["fields"].get(key)
         shown = "、".join(value) if isinstance(value, list) else (value or "—")
-        field_status = populated_status if shown != "—" else "⏳ 待采集"
-        lines.append(f"| {LABELS[key]} | {shown} | {field_status} |")
+        lines.append(f"| {LABELS[key]} | {shown} |")
 
     lines.extend(["", "## 数据源", ""])
     if record.get("sources"):
