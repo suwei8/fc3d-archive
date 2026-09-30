@@ -7,6 +7,7 @@
 固定归档字段：
 
 - 北京字谜
+- 另版北京字谜（牛彩网同期发布的第二版本，群图偶尔采用此版）
 - 太湖一语定胆
 - 试机号
 - 关注码
@@ -64,7 +65,7 @@ GitHub Actions 每日定时运行采集器，也支持手动触发。采集器�
 
 ## Web 管理面板（panel/）
 
-按期查看采集数据、上传归档微信群每日 21:00 分享的三张预测图、对图核验后一键标记 verified。
+按期查看采集数据、上传归档微信群每日 21:00 分享的三张预测图、对图核验后一键标记 verified。群图与采集值不一致时可在详情页"修正字段"直接改值；被修正的字段进入 `locked_fields`，即使该期仍是 candidate 也不会被后续采集覆盖，md 中标注"（人工修正）"。
 
 架构与 MyInput 相同：Vue3 前端（Cloudflare Pages）→ Hono API（Cloudflare Workers）→ GitHub API 读写本仓库。访问控制由 Cloudflare Access 承担，代码内无鉴权逻辑。
 
