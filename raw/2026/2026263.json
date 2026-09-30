@@ -1,0 +1,36 @@
+{
+  "issue": "2026263",
+  "status": "candidate",
+  "verified_by": null,
+  "fields": {
+    "beijing": null,
+    "taihu": "摸哨",
+    "trial_number": "395",
+    "focus": "804",
+    "gold": "8",
+    "corresponding": "048",
+    "bottom_focus": null,
+    "bottom_gold": null
+  },
+  "sources": {
+    "tianqi-sjh": {
+      "url": "https://www.800820.cn/kj/3d_sjh.html",
+      "fetched_at": "2026-09-30T09:53:08.483227+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding"
+      ]
+    },
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-09-30T09:53:08.483227+00:00",
+      "fields": [
+        "taihu"
+      ]
+    }
+  },
+  "collected_at": "2026-09-30T09:53:08.483227+00:00",
+  "notes": []
+}
