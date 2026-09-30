@@ -19,11 +19,17 @@
       "fields": [
         "taihu"
       ]
+    },
+    "cz89_nightly": {
+      "id": "cz89-nightly",
+      "name": "牛彩网 福彩3D晚间字谜汇总大全",
+      "discovery_url": "https://m.cz89.com/",
+      "fields": [
+        "beijing",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
-  "unresolved_fields": [
-    "beijing",
-    "bottom_focus",
-    "bottom_gold"
-  ]
+  "unresolved_fields": []
 }
