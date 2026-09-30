@@ -18,7 +18,7 @@
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-09-30T10:16:23.127486+00:00",
+      "fetched_at": "2026-09-30T13:02:16.956702+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -28,14 +28,14 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T10:16:23.127486+00:00",
+      "fetched_at": "2026-09-30T13:02:16.956702+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
-      "url": "https://m.cz89.com/read_10852801.htm",
-      "fetched_at": "2026-09-30T10:16:23.127486+00:00",
+      "url": "https://www.cz89.com/read_10852801.htm",
+      "fetched_at": "2026-09-30T13:02:16.956702+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -47,6 +47,6 @@
       ]
     }
   },
-  "collected_at": "2026-09-30T10:16:23.127486+00:00",
+  "collected_at": "2026-09-30T13:02:16.956702+00:00",
   "notes": []
 }
