@@ -176,13 +176,17 @@ app.post('/api/draw/refresh', async (c) => {
     records.set(issue, record)
     if (!record.draw_result) missing.add(issue)
   }
-  if (!missing.size) {
+  // ?probe=1：只探测上游可达性并写回上游行数，不落库（诊断用）
+  const probeOnly = c.req.query('probe') === '1'
+
+  if (!missing.size && !probeOnly) {
     return c.json({ success: true, updated: [], checked: paths.length, upstream_rows: 0 })
   }
 
   const draws: Record<string, string> = {}
-  // 新浪主源：翻页直到缺号期全部命中（封顶 8 页 ≈ 400 期）
-  for (let page = 1; page <= 8 && missing.size; page++) {
+  // 新浪主源：翻页直到缺号期全部命中（封顶 8 页 ≈ 400 期；probe 模式只拉第 1 页）
+  const maxPage = probeOnly ? 1 : 8
+  for (let page = 1; page <= maxPage && (missing.size || (probeOnly && page === 1)); page++) {
     const params = new URLSearchParams({
       format: 'json',
       __caller__: 'wap',
@@ -220,7 +224,7 @@ app.post('/api/draw/refresh', async (c) => {
 
   const updated: string[] = []
   for (const [issue, record] of records) {
-    if (record.draw_result || !draws[issue]) continue
+    if (probeOnly || record.draw_result || !draws[issue]) continue
     record.draw_result = draws[issue]
     await github.putFile(rawPath(issue), utf8ToB64(JSON.stringify(record, null, 2) + '\n'), `panel: ${issue} draw_result ${draws[issue]}`)
     await github.putFile(mdPath(issue), utf8ToB64(renderMd(record)), `panel: render ${issue}.md`)
