@@ -1,0 +1,46 @@
+{
+  "issue": "2026249",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "说梦话",
+    "beijing_alt": "防守型",
+    "taihu": "恰好数不过来",
+    "trial_number": "524",
+    "focus": "106",
+    "gold": "6",
+    "corresponding": "484",
+    "bottom_focus": [
+      "3",
+      "7"
+    ],
+    "bottom_gold": "2"
+  },
+  "draw_result": null,
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-09-30T18:09:35.129886+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10804121.htm",
+      "fetched_at": "2026-09-30T18:09:35.129886+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    }
+  },
+  "collected_at": "2026-09-30T18:09:35.129886+00:00",
+  "notes": []
+}
