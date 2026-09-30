@@ -49,12 +49,23 @@ jobs:
 
       - name: Commit changed archive files
         run: |
-          if git diff --quiet -- data raw; then
+          # git diff does not report brand-new untracked files, so inspect
+          # the working tree directly. This is important when a new issue
+          # creates data/YYYY/YYYYNNN.md and raw/YYYY/YYYYNNN.json.
+          if [ -z "$(git status --porcelain -- data raw)" ]; then
             echo "No archive changes."
             exit 0
           fi
+
           git config user.name "fc3d-archive-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data raw
+
+          # Guard again after staging.
+          if git diff --cached --quiet; then
+            echo "Nothing staged."
+            exit 0
+          fi
+
           git commit -m "data: collect $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
