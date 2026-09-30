@@ -1,0 +1,21 @@
+{
+  "issue": "2026258",
+  "status": "verified",
+  "verified_by": "human",
+  "fields": {
+    "beijing": "踏霜行",
+    "taihu": "山君坐镇",
+    "trial_number": "018",
+    "focus": "546",
+    "gold": "5",
+    "corresponding": "369",
+    "bottom_focus": [
+      "1",
+      "3"
+    ],
+    "bottom_gold": "8"
+  },
+  "notes": [
+    "第一张图片人工逐项核对黄金样本。"
+  ]
+}
