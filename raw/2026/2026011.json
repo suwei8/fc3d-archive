@@ -2,7 +2,10 @@
   "issue": "2026011",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "bottom_focus",
+    "bottom_gold"
+  ],
   "fields": {
     "beijing": "破落户",
     "beijing_alt": "阎罗王",
@@ -11,8 +14,11 @@
     "focus": "130",
     "gold": "3",
     "corresponding": "827",
-    "bottom_focus": null,
-    "bottom_gold": null
+    "bottom_focus": [
+      "3",
+      "5"
+    ],
+    "bottom_gold": "8"
   },
   "draw_result": "647",
   "sources": {
@@ -34,8 +40,18 @@
         "beijing",
         "beijing_alt"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026011/1.png",
+      "fetched_at": "2026-10-01T10:30:18.656267+00:00",
+      "fields": [
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
   "collected_at": "2026-10-01T10:30:18.656267+00:00",
-  "notes": []
+  "notes": [
+    "底关/底金由群图人工补录（cz89汇总页缺此两字段）"
+  ]
 }
