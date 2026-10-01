@@ -1,0 +1,57 @@
+{
+  "issue": "2026187",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [
+    "beijing",
+    "taihu",
+    "trial_number",
+    "focus",
+    "gold",
+    "corresponding",
+    "bottom_focus",
+    "bottom_gold"
+  ],
+  "fields": {
+    "beijing": "见面会",
+    "beijing_alt": null,
+    "taihu": "抱团",
+    "trial_number": "933",
+    "focus": "418",
+    "gold": "8",
+    "corresponding": "266",
+    "bottom_focus": [
+      "1",
+      "6"
+    ],
+    "bottom_gold": "5"
+  },
+  "draw_result": "023",
+  "sources": {
+    "group-image": {
+      "url": "images/2026/2026187/1.png",
+      "fetched_at": "2026-10-01T13:38:32.512610+00:00",
+      "fields": [
+        "beijing",
+        "taihu",
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T13:38:32.512610+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T13:38:32.512610+00:00",
+  "notes": [
+    "整期由群图人工补录建账（cz89/太湖/天齐均无此期数据）;开奖号取自新浪接口"
+  ]
+}
