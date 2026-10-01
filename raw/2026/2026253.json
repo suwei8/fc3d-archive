@@ -21,14 +21,14 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-09-30T18:00:08.568080+00:00",
+      "fetched_at": "2026-10-01T02:57:15.623227+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
       "url": "https://www.cz89.com/read_10817521.htm",
-      "fetched_at": "2026-09-30T18:00:08.568080+00:00",
+      "fetched_at": "2026-10-01T02:57:15.623227+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -41,6 +41,6 @@
       ]
     }
   },
-  "collected_at": "2026-09-30T18:00:08.568080+00:00",
+  "collected_at": "2026-10-01T02:57:15.623227+00:00",
   "notes": []
 }

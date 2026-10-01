@@ -1,0 +1,53 @@
+{
+  "issue": "2026242",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "对对找",
+    "beijing_alt": "橡胶条",
+    "taihu": "方方脸面弯弯肠",
+    "trial_number": "391",
+    "focus": "407",
+    "gold": "4",
+    "corresponding": "112",
+    "bottom_focus": [
+      "2",
+      "7"
+    ],
+    "bottom_gold": "8"
+  },
+  "draw_result": "555",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T02:57:00.177045+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10779821.htm",
+      "fetched_at": "2026-10-01T02:57:00.177045+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T02:57:00.177045+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T02:57:00.177045+00:00",
+  "notes": []
+}

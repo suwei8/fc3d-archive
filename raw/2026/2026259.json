@@ -1,27 +1,27 @@
 {
-  "issue": "2026257",
+  "issue": "2026259",
   "status": "candidate",
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": "戏流泉",
-    "beijing_alt": "拉丁语",
-    "taihu": "左手倒右手",
-    "trial_number": "275",
-    "focus": "392",
-    "gold": "9",
-    "corresponding": "959",
+    "beijing": "饮浊酒",
+    "beijing_alt": "调和油",
+    "taihu": "电池芯",
+    "trial_number": "532",
+    "focus": "971",
+    "gold": "7",
+    "corresponding": "161",
     "bottom_focus": [
-      "6",
-      "8"
+      "4",
+      "7"
     ],
-    "bottom_gold": "2"
+    "bottom_gold": "5"
   },
-  "draw_result": "486",
+  "draw_result": "731",
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-10-01T02:57:21.056021+00:00",
+      "fetched_at": "2026-10-01T02:57:23.691230+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -32,14 +32,14 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T02:57:21.056021+00:00",
+      "fetched_at": "2026-10-01T02:57:23.691230+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
-      "url": "https://www.cz89.com/read_10831867.htm",
-      "fetched_at": "2026-10-01T02:57:21.056021+00:00",
+      "url": "https://www.cz89.com/read_10838712.htm",
+      "fetched_at": "2026-10-01T02:57:23.691230+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -52,8 +52,6 @@
       ]
     }
   },
-  "collected_at": "2026-10-01T02:57:21.056021+00:00",
-  "notes": [
-    "等待用户用257期原图再次核对后升级为 verified。"
-  ]
+  "collected_at": "2026-10-01T02:57:23.691230+00:00",
+  "notes": []
 }
