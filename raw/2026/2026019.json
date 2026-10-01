@@ -2,17 +2,28 @@
   "issue": "2026019",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "bottom_focus",
+    "bottom_gold",
+    "corresponding",
+    "focus",
+    "gold",
+    "trial_number"
+  ],
   "fields": {
-    "beijing": null,
+    "beijing": "闭门羹",
     "beijing_alt": null,
     "taihu": "带头",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "802",
+    "focus": "784",
+    "gold": "4",
+    "corresponding": "818",
+    "bottom_focus": [
+      "2",
+      "7"
+    ],
+    "bottom_gold": "5"
   },
   "draw_result": "223",
   "sources": {
@@ -29,8 +40,26 @@
       "fields": [
         "draw_result"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026019/1.png",
+      "fetched_at": "2026-10-01T09:44:09.160991+00:00",
+      "fields": [
+        "beijing",
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
   "collected_at": "2026-10-01T04:30:31.259876+00:00",
-  "notes": []
+  "notes": [
+    {
+      "at": "2026-10-01T09:44:09.161009+00:00",
+      "text": "群图人工补录：字段取自字谜图底部印字；北京栏为群图所用版本（可能系另版）"
+    }
+  ]
 }
