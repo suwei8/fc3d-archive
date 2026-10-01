@@ -2,9 +2,18 @@
   "issue": "2026229",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "taihu",
+    "trial_number",
+    "focus",
+    "gold",
+    "corresponding",
+    "bottom_focus",
+    "bottom_gold"
+  ],
   "fields": {
-    "beijing": "老小孩",
+    "beijing": "背风吹",
     "beijing_alt": "背风吹",
     "taihu": "有点咸",
     "trial_number": "601",
@@ -46,8 +55,25 @@
       "fields": [
         "draw_result"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026229/1.png",
+      "fetched_at": "2026-10-01T13:59:33.350890+00:00",
+      "fields": [
+        "beijing",
+        "taihu",
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
   "collected_at": "2026-10-01T04:34:35.994351+00:00",
-  "notes": []
+  "notes": [
+    "北京谜面以群图为准；cz89变体为\"老小孩\"",
+    "复盘：开奖828。对应码028印字给2,8双中；谜图双红果=2且同形双物=组三暗示；鹿→6路径未兑现（鹿角分叉或应读2共振）。预测表组三45%形态正确"
+  ]
 }
