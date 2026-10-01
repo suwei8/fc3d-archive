@@ -1,0 +1,53 @@
+{
+  "issue": "2026126",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "泸沽湖",
+    "beijing_alt": "敞篷车",
+    "taihu": "包公铡侄",
+    "trial_number": "192",
+    "focus": "238",
+    "gold": "8",
+    "corresponding": "856",
+    "bottom_focus": [
+      "7",
+      "3"
+    ],
+    "bottom_gold": "4"
+  },
+  "draw_result": "846",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:32:13.835608+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10376264.htm",
+      "fetched_at": "2026-10-01T04:32:13.835608+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:32:13.835608+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:32:13.835608+00:00",
+  "notes": []
+}

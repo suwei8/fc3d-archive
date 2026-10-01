@@ -1,0 +1,53 @@
+{
+  "issue": "2026201",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "一季度",
+    "beijing_alt": "电磁铁",
+    "taihu": "约定",
+    "trial_number": "692",
+    "focus": "165",
+    "gold": "5",
+    "corresponding": "130",
+    "bottom_focus": [
+      "5",
+      "3"
+    ],
+    "bottom_gold": "8"
+  },
+  "draw_result": "321",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:33:56.607163+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10636977.htm",
+      "fetched_at": "2026-10-01T04:33:56.607163+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:33:56.607163+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:33:56.607163+00:00",
+  "notes": []
+}

@@ -1,0 +1,53 @@
+{
+  "issue": "2026114",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "大溶洞",
+    "beijing_alt": "演讲台",
+    "taihu": "产供销投",
+    "trial_number": "387",
+    "focus": "624",
+    "gold": "6",
+    "corresponding": "261",
+    "bottom_focus": [
+      "3",
+      "0"
+    ],
+    "bottom_gold": "2"
+  },
+  "draw_result": "864",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:31:55.537145+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10334712.htm",
+      "fetched_at": "2026-10-01T04:31:55.537145+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:31:55.537145+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:31:55.537145+00:00",
+  "notes": []
+}

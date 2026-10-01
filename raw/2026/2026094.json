@@ -1,0 +1,53 @@
+{
+  "issue": "2026094",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "豆腐汤",
+    "beijing_alt": "吐口水",
+    "taihu": "局长退二线",
+    "trial_number": "632",
+    "focus": "430",
+    "gold": "3",
+    "corresponding": "384",
+    "bottom_focus": [
+      "1",
+      "7"
+    ],
+    "bottom_gold": "3"
+  },
+  "draw_result": "418",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:31:29.114414+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10265394.htm",
+      "fetched_at": "2026-10-01T04:31:29.114414+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:31:29.114414+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:31:29.114414+00:00",
+  "notes": []
+}

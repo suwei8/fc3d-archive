@@ -1,0 +1,53 @@
+{
+  "issue": "2026127",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "千元机",
+    "beijing_alt": "老佛爷",
+    "taihu": "武术对练",
+    "trial_number": "348",
+    "focus": "645",
+    "gold": "4",
+    "corresponding": "191",
+    "bottom_focus": [
+      "3",
+      "5"
+    ],
+    "bottom_gold": "6"
+  },
+  "draw_result": "700",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:32:15.108688+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10379469.htm",
+      "fetched_at": "2026-10-01T04:32:15.108688+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:32:15.108688+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:32:15.108688+00:00",
+  "notes": []
+}

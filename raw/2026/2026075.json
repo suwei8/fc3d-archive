@@ -1,0 +1,48 @@
+{
+  "issue": "2026075",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "命相连",
+    "beijing_alt": "喵星人",
+    "taihu": "压水花",
+    "trial_number": "432",
+    "focus": "982",
+    "gold": "8",
+    "corresponding": "936",
+    "bottom_focus": null,
+    "bottom_gold": null
+  },
+  "draw_result": "816",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10200274.htm",
+      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:31:06.440517+00:00",
+  "notes": []
+}

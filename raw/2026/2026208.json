@@ -1,0 +1,53 @@
+{
+  "issue": "2026208",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "木线条",
+    "beijing_alt": "印花税",
+    "taihu": "张飞李白会济公",
+    "trial_number": "571",
+    "focus": "326",
+    "gold": "6",
+    "corresponding": "392",
+    "bottom_focus": [
+      "6",
+      "4"
+    ],
+    "bottom_gold": "0"
+  },
+  "draw_result": "632",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:34:06.592574+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10661345.htm",
+      "fetched_at": "2026-10-01T04:34:06.592574+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:34:06.592574+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:34:06.592574+00:00",
+  "notes": []
+}

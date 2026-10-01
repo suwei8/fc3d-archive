@@ -1,0 +1,53 @@
+{
+  "issue": "2026216",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "金话筒",
+    "beijing_alt": "螳螂拳",
+    "taihu": "抓了四个间谍",
+    "trial_number": "479",
+    "focus": "560",
+    "gold": "0",
+    "corresponding": "336",
+    "bottom_focus": [
+      "2",
+      "9"
+    ],
+    "bottom_gold": "1"
+  },
+  "draw_result": "935",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:34:18.071944+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10689425.htm",
+      "fetched_at": "2026-10-01T04:34:18.071944+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:34:18.071944+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:34:18.071944+00:00",
+  "notes": []
+}

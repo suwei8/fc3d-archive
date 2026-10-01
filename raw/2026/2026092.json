@@ -1,0 +1,53 @@
+{
+  "issue": "2026092",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "母细胞",
+    "beijing_alt": "对台戏",
+    "taihu": "不可挽留",
+    "trial_number": "768",
+    "focus": "349",
+    "gold": "9",
+    "corresponding": "131",
+    "bottom_focus": [
+      "5",
+      "4"
+    ],
+    "bottom_gold": "1"
+  },
+  "draw_result": "870",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:31:26.617507+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10258375.htm",
+      "fetched_at": "2026-10-01T04:31:26.617507+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:31:26.617507+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:31:26.617507+00:00",
+  "notes": []
+}

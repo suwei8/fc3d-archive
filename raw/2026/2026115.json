@@ -1,0 +1,53 @@
+{
+  "issue": "2026115",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "技术性",
+    "beijing_alt": "闯天涯",
+    "taihu": "饕餮只管吃",
+    "trial_number": "229",
+    "focus": "794",
+    "gold": "4",
+    "corresponding": "484",
+    "bottom_focus": [
+      "0",
+      "8"
+    ],
+    "bottom_gold": "7"
+  },
+  "draw_result": "581",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:31:56.846971+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10338153.htm",
+      "fetched_at": "2026-10-01T04:31:56.846971+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:31:56.846971+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:31:56.846971+00:00",
+  "notes": []
+}

@@ -1,0 +1,53 @@
+{
+  "issue": "2026120",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "竖起来",
+    "beijing_alt": "跨越式",
+    "taihu": "司机看到猴屁股",
+    "trial_number": "425",
+    "focus": "943",
+    "gold": "9",
+    "corresponding": "916",
+    "bottom_focus": [
+      "3",
+      "7"
+    ],
+    "bottom_gold": "4"
+  },
+  "draw_result": "734",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:32:05.344733+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10355234.htm",
+      "fetched_at": "2026-10-01T04:32:05.344733+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:32:05.344733+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:32:05.344733+00:00",
+  "notes": []
+}

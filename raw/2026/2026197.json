@@ -1,0 +1,53 @@
+{
+  "issue": "2026197",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "窝里反",
+    "beijing_alt": "洗头膏",
+    "taihu": "对头对顶",
+    "trial_number": "942",
+    "focus": "618",
+    "gold": "1",
+    "corresponding": "310",
+    "bottom_focus": [
+      "0",
+      "2"
+    ],
+    "bottom_gold": "3"
+  },
+  "draw_result": "232",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:33:50.571761+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10622686.htm",
+      "fetched_at": "2026-10-01T04:33:50.571761+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:33:50.571761+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:33:50.571761+00:00",
+  "notes": []
+}

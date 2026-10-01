@@ -1,0 +1,53 @@
+{
+  "issue": "2026204",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "交通线",
+    "beijing_alt": "矿泉水",
+    "taihu": "田径跑道",
+    "trial_number": "496",
+    "focus": "580",
+    "gold": "0",
+    "corresponding": "370",
+    "bottom_focus": [
+      "2",
+      "8"
+    ],
+    "bottom_gold": "1"
+  },
+  "draw_result": "978",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:34:01.522466+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10647002.htm",
+      "fetched_at": "2026-10-01T04:34:01.522466+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:34:01.522466+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:34:01.522466+00:00",
+  "notes": []
+}

@@ -1,0 +1,53 @@
+{
+  "issue": "2026228",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "清一路",
+    "beijing_alt": "一刀切",
+    "taihu": "老天爷饿不死瞎家雀",
+    "trial_number": "927",
+    "focus": "043",
+    "gold": "0",
+    "corresponding": "113",
+    "bottom_focus": [
+      "4",
+      "6"
+    ],
+    "bottom_gold": "9"
+  },
+  "draw_result": "399",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:34:34.666597+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10731357.htm",
+      "fetched_at": "2026-10-01T04:34:34.666597+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:34:34.666597+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:34:34.666597+00:00",
+  "notes": []
+}

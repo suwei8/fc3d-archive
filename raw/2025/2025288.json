@@ -1,0 +1,36 @@
+{
+  "issue": "2025288",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": null,
+    "beijing_alt": null,
+    "taihu": "二十年后再相会",
+    "trial_number": null,
+    "focus": null,
+    "gold": null,
+    "corresponding": null,
+    "bottom_focus": null,
+    "bottom_gold": null
+  },
+  "draw_result": "767",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:30:06.595359+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:30:06.595359+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:30:06.595359+00:00",
+  "notes": []
+}

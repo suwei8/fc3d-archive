@@ -1,0 +1,53 @@
+{
+  "issue": "2026124",
+  "status": "candidate",
+  "verified_by": null,
+  "locked_fields": [],
+  "fields": {
+    "beijing": "研究所",
+    "beijing_alt": "独特性",
+    "taihu": "老椰子树下",
+    "trial_number": "376",
+    "focus": "502",
+    "gold": "5",
+    "corresponding": "677",
+    "bottom_focus": [
+      "1",
+      "2"
+    ],
+    "bottom_gold": "8"
+  },
+  "draw_result": "280",
+  "sources": {
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-01T04:32:10.522023+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10369430.htm",
+      "fetched_at": "2026-10-01T04:32:10.522023+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
+      ]
+    },
+    "sina-open": {
+      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
+      "fetched_at": "2026-10-01T04:32:10.522023+00:00",
+      "fields": [
+        "draw_result"
+      ]
+    }
+  },
+  "collected_at": "2026-10-01T04:32:10.522023+00:00",
+  "notes": []
+}
