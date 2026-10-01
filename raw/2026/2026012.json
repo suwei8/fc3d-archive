@@ -2,17 +2,29 @@
   "issue": "2026012",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "taihu",
+    "trial_number",
+    "focus",
+    "gold",
+    "corresponding",
+    "bottom_focus",
+    "bottom_gold"
+  ],
   "fields": {
     "beijing": "沟中瘠",
     "beijing_alt": "土皇帝",
-    "taihu": "只有复仇能解恨",
+    "taihu": "只有行动能释怀",
     "trial_number": "417",
     "focus": "538",
     "gold": "5",
     "corresponding": "328",
-    "bottom_focus": null,
-    "bottom_gold": null
+    "bottom_focus": [
+      "2",
+      "9"
+    ],
+    "bottom_gold": "6"
   },
   "draw_result": "241",
   "sources": {
@@ -34,8 +46,25 @@
         "beijing",
         "beijing_alt"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026012/1.png",
+      "fetched_at": "2026-10-01T13:51:03.002763+00:00",
+      "fields": [
+        "beijing",
+        "taihu",
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
   "collected_at": "2026-10-01T10:30:20.209539+00:00",
-  "notes": []
+  "notes": [
+    "太湖谜面以群图为准；cz89变体为\"只有复仇能解恨\"",
+    "复盘：开奖241。兔=生肖4 + 兔双耳=2 + 一道沟=1 → 计数法组选全中(生肖位次+体征计数+数量计数路径)。试机号417含4,1；对应码328含2。\"释怀→0\"会意未兑现，降权"
+  ]
 }
