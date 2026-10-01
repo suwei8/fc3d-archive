@@ -167,15 +167,18 @@ def _cz89_title_issue(title: str) -> str | None:
 
 
 def index_cz89_nightly(lo: str, hi: str, max_pages: int = 2500) -> dict[str, str]:
-    """扫描 item_4 字谜列表（按时间倒序、?p=N 分页），建立 {期号: 汇总大全文章URL} 索引。
+    """扫描 tag/4_56 字谜汇总标签列表（按时间倒序、?p=N 分页），建立 {期号: 汇总大全文章URL} 索引。
 
-    列表按时间倒序，当某页最大期号已小于 lo 时即可停止（后续页更老）。
-    置顶帖会混入老期号，但不影响"整页最大期号"判断。
+    注意：item_4 分类页深翻后不再含"晚间字谜汇总大全"文章，历史回填必须用
+    tag/4_56.htm（按期连续：每页约覆盖 1.7 期，26年初约在 130-160 页深）。
+    列表按时间倒序，但置顶/顶贴会混入老期号，因此需要"连续 3 页最大期号均 < lo"
+    才判定已越过区间，避免单页老帖导致提前停止。
     """
     idx: dict[str, str] = {}
+    old_streak = 0
     for page in range(1, max_pages + 1):
-        listing_url = CZ89_ITEM4_URL if page == 1 else f"{CZ89_ITEM4_URL}?p={page}"
-        html = safe_fetch(listing_url, f"cz89-item4-p{page}")
+        listing_url = CZ89_ARCHIVE_URL if page == 1 else f"{CZ89_ARCHIVE_URL}?p={page}"
+        html = safe_fetch(listing_url, f"cz89-tag-p{page}")
         if not html:
             continue
         soup = BeautifulSoup(html, "html.parser")
@@ -188,8 +191,12 @@ def index_cz89_nightly(lo: str, hi: str, max_pages: int = 2500) -> dict[str, str
             if issue and lo <= issue <= hi and _CZ89_DIGEST_TITLE_RE.search(title) and issue not in idx:
                 idx[issue] = urljoin(listing_url, a["href"])
         if page_issues and max(page_issues) < lo:
-            print(f"[info] cz89 index scan stopped at page {page} (max issue {max(page_issues)} < {lo})")
-            break
+            old_streak += 1
+            if old_streak >= 3:
+                print(f"[info] cz89 index scan stopped at page {page} (3 consecutive pages below {lo})")
+                break
+        else:
+            old_streak = 0
         if page % 20 == 0:
             print(f"[info] cz89 index scan: page {page}, {len(idx)} issues indexed")
         time.sleep(0.3)
