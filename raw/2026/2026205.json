@@ -2,7 +2,16 @@
   "issue": "2026205",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "taihu",
+    "trial_number",
+    "focus",
+    "gold",
+    "corresponding",
+    "bottom_focus",
+    "bottom_gold"
+  ],
   "fields": {
     "beijing": "雨纷纷",
     "beijing_alt": "粉煤灰",
@@ -46,8 +55,24 @@
       "fields": [
         "draw_result"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026205/1.png",
+      "fetched_at": "2026-10-01T14:05:54.898302+00:00",
+      "fields": [
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold",
+        "beijing",
+        "taihu"
+      ]
     }
   },
   "collected_at": "2026-10-01T04:34:02.775955+00:00",
-  "notes": []
+  "notes": [
+    "复盘：开奖814。谜图鼠=生肖1；字谜图蓝兔=生肖4；试机号826首位给8。单谜图缺字谜图佐证时8/4无锚点；彩球散物计数不取"
+  ]
 }
