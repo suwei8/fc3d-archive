@@ -10,6 +10,7 @@ def test_2026258_golden_fixture_is_locked():
     assert data["status"] == "verified"
     assert data["fields"] == {
         "beijing": "踏霜行",
+        "beijing_alt": "流水线",
         "taihu": "山君坐镇",
         "trial_number": "018",
         "focus": "546",

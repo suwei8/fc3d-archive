@@ -7,6 +7,14 @@ on:
         description: "指定期号（留空则采集上游最新期）"
         required: false
         type: string
+      from_issue:
+        description: "回填起始期号（如 2026234），配合 to_issue 使用"
+        required: false
+        type: string
+      to_issue:
+        description: "回填结束期号（如 2026263），配合 from_issue 使用"
+        required: false
+        type: string
   schedule:
     # 北京时间 18:00 采集当日字谜数据，19:25/20:25 为重试兜底（容忍上游延迟）。
     - cron: "0 10 * * *"
@@ -44,8 +52,13 @@ jobs:
       - name: Collect
         env:
           ISSUE: ${{ inputs.issue }}
+          FROM_ISSUE: ${{ inputs.from_issue }}
+          TO_ISSUE: ${{ inputs.to_issue }}
         run: |
-          if [ -n "$ISSUE" ]; then
+          if [ -n "$FROM_ISSUE" ] && [ -n "$TO_ISSUE" ]; then
+            # 回填模式：cz89 列表索引 + 太湖翻页 + 新浪开奖一次搞定，跨年无效期号自动跳过
+            python scripts/collect.py --from "$FROM_ISSUE" --to "$TO_ISSUE"
+          elif [ -n "$ISSUE" ]; then
             python scripts/collect.py --issue "$ISSUE"
           else
             python scripts/collect.py
