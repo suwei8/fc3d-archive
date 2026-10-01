@@ -2,17 +2,28 @@
   "issue": "2026038",
   "status": "candidate",
   "verified_by": null,
-  "locked_fields": [],
+  "locked_fields": [
+    "beijing",
+    "bottom_focus",
+    "bottom_gold",
+    "corresponding",
+    "focus",
+    "gold",
+    "trial_number"
+  ],
   "fields": {
-    "beijing": null,
+    "beijing": "小神童",
     "beijing_alt": null,
     "taihu": "天机不露何必算",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "531",
+    "focus": "672",
+    "gold": "6",
+    "corresponding": "746",
+    "bottom_focus": [
+      "4",
+      "3"
+    ],
+    "bottom_gold": "2"
   },
   "draw_result": "467",
   "sources": {
@@ -29,8 +40,26 @@
       "fields": [
         "draw_result"
       ]
+    },
+    "group-image": {
+      "url": "images/2026/2026038/1.png",
+      "fetched_at": "2026-10-01T09:29:14.996922+00:00",
+      "fields": [
+        "beijing",
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "bottom_focus",
+        "bottom_gold"
+      ]
     }
   },
   "collected_at": "2026-10-01T04:30:36.971940+00:00",
-  "notes": []
+  "notes": [
+    {
+      "at": "2026-10-01T09:29:14.996941+00:00",
+      "text": "群图人工补录：字段取自字谜图底部印字；北京栏为群图所用版本（可能系另版）"
+    }
+  ]
 }
