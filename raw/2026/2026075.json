@@ -18,14 +18,14 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
+      "fetched_at": "2026-10-01T10:31:35.366385+00:00",
       "fields": [
         "taihu"
       ]
     },
     "cz89-nightly": {
       "url": "https://www.cz89.com/read_10200274.htm",
-      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
+      "fetched_at": "2026-10-01T10:31:35.366385+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -34,15 +34,8 @@
         "beijing",
         "beijing_alt"
       ]
-    },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:31:06.440517+00:00",
-      "fields": [
-        "draw_result"
-      ]
     }
   },
-  "collected_at": "2026-10-01T04:31:06.440517+00:00",
+  "collected_at": "2026-10-01T10:31:35.366385+00:00",
   "notes": []
 }

@@ -18,19 +18,12 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:33:40.343228+00:00",
+      "fetched_at": "2026-10-01T10:34:35.792662+00:00",
       "fields": [
         "taihu"
       ]
-    },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:33:40.343228+00:00",
-      "fields": [
-        "draw_result"
-      ]
     }
   },
-  "collected_at": "2026-10-01T04:33:40.343228+00:00",
+  "collected_at": "2026-10-01T10:34:35.792662+00:00",
   "notes": []
 }

@@ -4,33 +4,43 @@
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": null,
-    "beijing_alt": null,
+    "beijing": "搜寻队",
+    "beijing_alt": "金鳌勋",
     "taihu": "擀面杖吹火",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "549",
+    "focus": "718",
+    "gold": "7",
+    "corresponding": "113",
+    "bottom_focus": [
+      "3",
+      "6"
+    ],
+    "bottom_gold": "1"
   },
   "draw_result": "676",
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:21.928421+00:00",
+      "fetched_at": "2026-10-01T10:47:29.613008+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:21.928421+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9901631.htm",
+      "fetched_at": "2026-10-01T10:47:29.613008+00:00",
       "fields": [
-        "draw_result"
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:21.928421+00:00",
+  "collected_at": "2026-10-01T10:47:29.613008+00:00",
   "notes": []
 }

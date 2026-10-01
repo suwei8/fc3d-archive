@@ -4,13 +4,13 @@
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": null,
-    "beijing_alt": null,
+    "beijing": "落水狗",
+    "beijing_alt": "富士通",
     "taihu": "霓虹灯下的哨兵",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
+    "trial_number": "067",
+    "focus": "438",
+    "gold": "4",
+    "corresponding": "273",
     "bottom_focus": null,
     "bottom_gold": null
   },
@@ -18,19 +18,24 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:27.049455+00:00",
+      "fetched_at": "2026-10-01T10:30:09.558176+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:27.049455+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9959530.htm",
+      "fetched_at": "2026-10-01T10:30:09.558176+00:00",
       "fields": [
-        "draw_result"
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:27.049455+00:00",
+  "collected_at": "2026-10-01T10:30:09.558176+00:00",
   "notes": []
 }

@@ -4,33 +4,43 @@
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": null,
-    "beijing_alt": null,
+    "beijing": "顺坡爬",
+    "beijing_alt": "负电荷",
     "taihu": "两口子吵架明儿就好",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "626",
+    "focus": "285",
+    "gold": "2",
+    "corresponding": "945",
+    "bottom_focus": [
+      "5",
+      "7"
+    ],
+    "bottom_gold": "8"
   },
   "draw_result": "265",
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:28.252196+00:00",
+      "fetched_at": "2026-10-01T10:30:15.589314+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:28.252196+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9973503.htm",
+      "fetched_at": "2026-10-01T10:30:15.589314+00:00",
       "fields": [
-        "draw_result"
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:28.252196+00:00",
+  "collected_at": "2026-10-01T10:30:15.589314+00:00",
   "notes": []
 }

@@ -13,7 +13,7 @@
   ],
   "fields": {
     "beijing": "闭门羹",
-    "beijing_alt": null,
+    "beijing_alt": "小角色",
     "taihu": "带头",
     "trial_number": "802",
     "focus": "784",
@@ -29,33 +29,27 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:31.259876+00:00",
+      "fetched_at": "2026-10-01T10:30:29.988940+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:31.259876+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10007438.htm",
+      "fetched_at": "2026-10-01T10:30:29.988940+00:00",
       "fields": [
-        "draw_result"
-      ]
-    },
-    "group-image": {
-      "url": "images/2026/2026019/1.png",
-      "fetched_at": "2026-10-01T09:44:09.160991+00:00",
-      "fields": [
-        "beijing",
         "trial_number",
         "focus",
         "gold",
         "corresponding",
+        "beijing",
+        "beijing_alt",
         "bottom_focus",
         "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:31.259876+00:00",
+  "collected_at": "2026-10-01T10:30:29.988940+00:00",
   "notes": [
     {
       "at": "2026-10-01T09:44:09.161009+00:00",

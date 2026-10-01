@@ -4,33 +4,43 @@
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": null,
-    "beijing_alt": null,
+    "beijing": "循环体",
+    "beijing_alt": "模仿秀",
     "taihu": "领导发言别插话",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "261",
+    "focus": "704",
+    "gold": "0",
+    "corresponding": "025",
+    "bottom_focus": [
+      "3",
+      "8"
+    ],
+    "bottom_gold": "7"
   },
   "draw_result": "922",
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:31:23.002388+00:00",
+      "fetched_at": "2026-10-01T10:32:09.415229+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:31:23.002388+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10248381.htm",
+      "fetched_at": "2026-10-01T10:32:09.415229+00:00",
       "fields": [
-        "draw_result"
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:31:23.002388+00:00",
+  "collected_at": "2026-10-01T10:32:09.415229+00:00",
   "notes": []
 }

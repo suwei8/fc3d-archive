@@ -4,33 +4,43 @@
   "verified_by": null,
   "locked_fields": [],
   "fields": {
-    "beijing": null,
-    "beijing_alt": null,
+    "beijing": "打印机",
+    "beijing_alt": "口水歌",
     "taihu": "二十年后再相会",
-    "trial_number": null,
-    "focus": null,
-    "gold": null,
-    "corresponding": null,
-    "bottom_focus": null,
-    "bottom_gold": null
+    "trial_number": "491",
+    "focus": "678",
+    "gold": "6",
+    "corresponding": "264",
+    "bottom_focus": [
+      "6",
+      "1"
+    ],
+    "bottom_gold": "3"
   },
   "draw_result": "767",
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:06.595359+00:00",
+      "fetched_at": "2026-10-01T10:46:18.502933+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:06.595359+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9729516.htm",
+      "fetched_at": "2026-10-01T10:46:18.502933+00:00",
       "fields": [
-        "draw_result"
+        "trial_number",
+        "focus",
+        "gold",
+        "corresponding",
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:06.595359+00:00",
+  "collected_at": "2026-10-01T10:46:18.502933+00:00",
   "notes": []
 }

@@ -13,7 +13,7 @@
   ],
   "fields": {
     "beijing": "小神童",
-    "beijing_alt": null,
+    "beijing_alt": "千斤顶",
     "taihu": "天机不露何必算",
     "trial_number": "531",
     "focus": "672",
@@ -29,33 +29,25 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:36.971940+00:00",
+      "fetched_at": "2026-10-01T10:30:51.317020+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:36.971940+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10072626.htm",
+      "fetched_at": "2026-10-01T10:30:51.317020+00:00",
       "fields": [
-        "draw_result"
-      ]
-    },
-    "group-image": {
-      "url": "images/2026/2026038/1.png",
-      "fetched_at": "2026-10-01T09:29:14.996922+00:00",
-      "fields": [
-        "beijing",
         "trial_number",
         "focus",
         "gold",
         "corresponding",
-        "bottom_focus",
-        "bottom_gold"
+        "beijing",
+        "beijing_alt"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:36.971940+00:00",
+  "collected_at": "2026-10-01T10:30:51.317020+00:00",
   "notes": [
     {
       "at": "2026-10-01T09:29:14.996941+00:00",

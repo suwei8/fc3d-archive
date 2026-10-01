@@ -13,7 +13,7 @@
   ],
   "fields": {
     "beijing": "团体赛",
-    "beijing_alt": null,
+    "beijing_alt": "团体赛",
     "taihu": "二手旧货",
     "trial_number": "564",
     "focus": "358",
@@ -29,33 +29,27 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:26.448159+00:00",
+      "fetched_at": "2026-10-01T10:30:06.614478+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:26.448159+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9952618.htm",
+      "fetched_at": "2026-10-01T10:30:06.614478+00:00",
       "fields": [
-        "draw_result"
-      ]
-    },
-    "group-image": {
-      "url": "images/2026/2026003/1.png",
-      "fetched_at": "2026-10-01T09:11:53.062152+00:00",
-      "fields": [
-        "beijing",
         "trial_number",
         "focus",
         "gold",
         "corresponding",
+        "beijing",
+        "beijing_alt",
         "bottom_focus",
         "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:26.448159+00:00",
+  "collected_at": "2026-10-01T10:30:06.614478+00:00",
   "notes": [
     {
       "at": "2026-10-01T09:11:53.062171+00:00",

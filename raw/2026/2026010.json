@@ -13,7 +13,7 @@
   ],
   "fields": {
     "beijing": "半吊子",
-    "beijing_alt": null,
+    "beijing_alt": "黄大仙",
     "taihu": "再多就进位了",
     "trial_number": "813",
     "focus": "689",
@@ -29,33 +29,25 @@
   "sources": {
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-01T04:30:28.552834+00:00",
+      "fetched_at": "2026-10-01T10:30:17.119533+00:00",
       "fields": [
         "taihu"
       ]
     },
-    "sina-open": {
-      "url": "https://mix.lottery.sina.com.cn/gateway/index/entry",
-      "fetched_at": "2026-10-01T04:30:28.552834+00:00",
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_9976655.htm",
+      "fetched_at": "2026-10-01T10:30:17.119533+00:00",
       "fields": [
-        "draw_result"
-      ]
-    },
-    "group-image": {
-      "url": "images/2026/2026010/1.png",
-      "fetched_at": "2026-10-01T09:39:01.721196+00:00",
-      "fields": [
-        "beijing",
         "trial_number",
         "focus",
         "gold",
         "corresponding",
-        "bottom_focus",
-        "bottom_gold"
+        "beijing",
+        "beijing_alt"
       ]
     }
   },
-  "collected_at": "2026-10-01T04:30:28.552834+00:00",
+  "collected_at": "2026-10-01T10:30:17.119533+00:00",
   "notes": [
     {
       "at": "2026-10-01T09:39:01.721215+00:00",
