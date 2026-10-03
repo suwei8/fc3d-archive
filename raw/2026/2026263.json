@@ -22,25 +22,28 @@
   },
   "draw_result": "987",
   "sources": {
-    "tianqi-sjh": {
-      "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-10-03T17:35:54.919595+00:00",
+    "cpzj-taihu": {
+      "url": "https://www.cpzj.com/3d/yydd/",
+      "fetched_at": "2026-10-03T17:56:12.326094+00:00",
+      "fields": [
+        "taihu"
+      ]
+    },
+    "cz89-nightly": {
+      "url": "https://www.cz89.com/read_10852801.htm",
+      "fetched_at": "2026-10-03T17:56:12.326094+00:00",
       "fields": [
         "trial_number",
         "focus",
         "gold",
         "corresponding",
-        "draw_result"
-      ]
-    },
-    "cpzj-taihu": {
-      "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-03T17:35:54.919595+00:00",
-      "fields": [
-        "taihu"
+        "beijing",
+        "beijing_alt",
+        "bottom_focus",
+        "bottom_gold"
       ]
     }
   },
-  "collected_at": "2026-10-03T17:35:54.919595+00:00",
+  "collected_at": "2026-10-03T17:56:12.326094+00:00",
   "notes": []
 }
