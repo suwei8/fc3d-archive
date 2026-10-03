@@ -24,7 +24,7 @@
   "sources": {
     "tianqi-sjh": {
       "url": "https://www.800820.cn/kj/3d_sjh.html",
-      "fetched_at": "2026-10-02T19:20:02.551972+00:00",
+      "fetched_at": "2026-10-03T14:30:14.807297+00:00",
       "fields": [
         "trial_number",
         "focus",
@@ -35,12 +35,12 @@
     },
     "cpzj-taihu": {
       "url": "https://www.cpzj.com/3d/yydd/",
-      "fetched_at": "2026-10-02T19:20:02.551972+00:00",
+      "fetched_at": "2026-10-03T14:30:14.807297+00:00",
       "fields": [
         "taihu"
       ]
     }
   },
-  "collected_at": "2026-10-02T19:20:02.551972+00:00",
+  "collected_at": "2026-10-03T14:30:14.807297+00:00",
   "notes": []
 }
